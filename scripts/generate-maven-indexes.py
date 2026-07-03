@@ -6,7 +6,7 @@ ROOT = Path(__file__).resolve().parent.parent
 
 SITE_NAME = "TamKungZ_ Maven Repository (Permanent)"
 BASE_URL = "https://maven.tamkungz.me"
-FAVICON_URL = "https://repo.tamkungz.me/tamkungz-repo-favicon-v2.ico"
+FAVICON_URL = "https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/maven/tamkungz-repo-favicon-v2-nobg.ico"
 
 # Maven group roots that should be visible from /
 MAVEN_ROOTS = [
@@ -255,7 +255,7 @@ def make_index(directory: Path):
     body {{
       margin: 0;
       background:
-        radial-gradient(circle at top left, rgba(159, 195, 252, 0.08), transparent 320px),
+        radial-gradient(circle at top left, rgba(169, 255, 175, 0.08), transparent 320px),
         var(--bg);
       color: var(--text);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -393,7 +393,7 @@ def make_index(directory: Path):
 <body>
   <main>
     <header>
-      <h1>TamKungZ Maven Repository</h1>
+      <h1>TamKungZ_ Maven Repository (Permanent)</h1>
       <div class="subtitle">{escape(description)}</div>
       <div class="path">{escape(path_text)}</div>
     </header>
