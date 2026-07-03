@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TamKungZ Maven Repository</title>
+  <meta name="description" content="Public Maven repository for TamKungZ projects.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0f1115;
+      --panel: #171b24;
+      --text: #f5f5f5;
+      --muted: #b8bfcc;
+      --line: #2a3140;
+      --accent: #9fc3fc;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(159, 195, 252, .12), transparent 34rem),
+        var(--bg);
+      color: var(--text);
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    .card {
+      background: rgba(23, 27, 36, .92);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 28px;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .35);
+    }
+
+    h1 { margin: 0 0 8px; font-size: clamp(2rem, 5vw, 3.25rem); letter-spacing: -.04em; }
+    h2 { margin-top: 32px; }
+    p { color: var(--muted); line-height: 1.6; }
+    a { color: var(--accent); }
+    code, pre {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: .95rem;
+    }
+    code {
+      background: #0d1018;
+      border: 1px solid var(--line);
+      padding: 2px 6px;
+      border-radius: 6px;
+    }
+    pre {
+      overflow-x: auto;
+      background: #0d1018;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      line-height: 1.55;
+    }
+    .muted { color: var(--muted); }
+  </style>
+</head>
+<body>
+<main>
+  <section class="card">
+    <h1>TamKungZ Maven</h1>
+    <p>Public static Maven repository for TamKungZ projects.</p>
+
+    <h2>Gradle</h2>
+    <pre><code>repositories {
+    maven {
+        name = "TamKungZ Maven"
+        url = uri("https://maven.tamkungz.me/")
+    }
+}</code></pre>
+
+    <h2>Gradle Groovy DSL</h2>
+    <pre><code>repositories {
+    maven {
+        name = "TamKungZ Maven"
+        url "https://maven.tamkungz.me/"
+    }
+}</code></pre>
+
+    <h2>Example dependency</h2>
+    <pre><code>dependencies {
+    implementation "me.tamkungz:examplelib:1.0.0"
+}</code></pre>
+
+    <p class="muted">
+      Maven artifacts are served from the root of this domain.
+      Example path: <code>/me/tamkungz/examplelib/1.0.0/examplelib-1.0.0.pom</code>
+    </p>
+  </section>
+</main>
+</body>
+</html>
