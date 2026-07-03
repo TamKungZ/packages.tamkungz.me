@@ -4,7 +4,7 @@ from datetime import datetime, timezone
 
 ROOT = Path(__file__).resolve().parent.parent
 
-SITE_NAME = "TamKungZ Maven Repository"
+SITE_NAME = "TamKungZ_ Maven Repository (Permanent)"
 BASE_URL = "https://maven.tamkungz.me"
 FAVICON_URL = "https://repo.tamkungz.me/tamkungz-repo-favicon-v2.ico"
 
@@ -219,7 +219,7 @@ def make_index(directory: Path):
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{escape(description)}">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#0f0f0f">
+  <meta name="theme-color" content="#78e398">
 
   <link rel="canonical" href="{escape(canonical_url(directory))}">
   <link rel="icon" href="{escape(FAVICON_URL)}" type="image/x-icon">
@@ -244,8 +244,8 @@ def make_index(directory: Path):
       --text: #e8e8e8;
       --muted: #8f8f8f;
       --line: #2a2a2a;
-      --accent: #9fc3fc;
-      --accent-soft: rgba(159, 195, 252, 0.12);
+      --accent: #78e398;
+      --accent-soft: rgba(120, 227, 152, 0.12);
     }}
 
     * {{
