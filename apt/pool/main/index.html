@@ -22,175 +22,213 @@
   <meta name="twitter:title" content="TamKungZ_ Packages - /apt/pool/main/">
   <meta name="twitter:description" content="APT repository shared by TamKungZ_ Linux packages.">
 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
   <style>
-    :root {
-      color-scheme: dark;
-      --bg: #0f0f0f;
-      --panel: #151515;
-      --panel-2: #1b1b1b;
-      --text: #e8e8e8;
-      --muted: #8f8f8f;
-      --line: #2a2a2a;
-      --accent: #78e398;
-      --accent-soft: rgba(120, 227, 152, 0.12);
-    }
+:root {
+  color-scheme: dark;
+  --bg: #0f0f0f;
+  --panel: #151515;
+  --panel-2: #1b1b1b;
+  --text: #e8e8e8;
+  --muted: #8f8f8f;
+  --line: #2a2a2a;
+  --accent: #78e398;
+  --accent-soft: rgba(120, 227, 152, 0.12);
+}
 
-    * { box-sizing: border-box; }
+* { box-sizing: border-box; }
 
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-      font-size: 15px;
-      line-height: 1.6;
-    }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 15px;
+  line-height: 1.6;
+}
 
-    main {
-      width: min(960px, calc(100% - 32px));
-      margin: 44px auto;
-    }
+main {
+  width: min(960px, calc(100% - 32px));
+  margin: 44px auto;
+}
 
-    header { margin-bottom: 24px; }
+header { margin-bottom: 24px; }
 
-    h1 {
-      margin: 0;
-      font-size: clamp(22px, 3.2vw, 32px);
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      line-height: 1.2;
-    }
+h1 {
+  margin: 0;
+  font-size: clamp(22px, 3.2vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
 
-    .subtitle {
-      margin-top: 10px;
-      color: var(--muted);
-      max-width: 800px;
-    }
+.subtitle {
+  margin-top: 10px;
+  color: var(--muted);
+  max-width: 800px;
+}
 
-    .path {
-      display: inline-flex;
-      align-items: center;
-      margin-top: 16px;
-      padding: 6px 10px;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      background: var(--panel);
-      color: var(--accent);
-      font-size: 13px;
-    }
+.path {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel);
+  color: var(--accent);
+  font-size: 13px;
+}
 
-    .usage {
-      margin: 20px 0 24px;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--panel);
-      overflow: hidden;
-    }
+.usage { margin: 20px 0 24px; }
 
-    .usage-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 14px;
-      border-bottom: 1px solid var(--line);
-      background: var(--panel-2);
-      color: var(--muted);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-    }
+.usage-title {
+  margin: 0 0 8px 2px;
+  color: var(--muted);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
 
-    .copy-btn {
-      font: inherit;
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--muted);
-      background: transparent;
-      border: 1px solid var(--line);
-      border-radius: 6px;
-      padding: 3px 10px;
-      cursor: pointer;
-      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-    }
+.code-block {
+  margin-bottom: 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+  overflow: hidden;
+}
 
-    .copy-btn:hover {
-      color: var(--accent);
-      border-color: var(--accent);
-    }
+.code-block:last-child { margin-bottom: 0; }
 
-    .copy-btn.copied {
-      color: var(--accent);
-      border-color: var(--accent);
-      background: var(--accent-soft);
-    }
+.code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+}
 
-    pre {
-      margin: 0;
-      padding: 14px;
-      overflow-x: auto;
-      color: #dcdcdc;
-      white-space: pre;
-    }
+.code-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
-    .table-wrap {
-      overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      background: var(--panel);
-    }
+.code-lang {
+  flex: none;
+  padding: 2px 7px;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+.copy-btn {
+  flex: none;
+  font: inherit;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 3px 10px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
 
-    td {
-      padding: 11px 14px;
-      border-bottom: 1px solid var(--line);
-      vertical-align: middle;
-    }
+.copy-btn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+}
 
-    tr:last-child td { border-bottom: 0; }
-    tr:hover { background: var(--accent-soft); }
+.copy-btn.copied {
+  color: var(--accent);
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
 
-    .type {
-      width: 130px;
-      color: var(--muted);
-      text-transform: uppercase;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-    }
+.code-block pre {
+  margin: 0;
+  padding: 14px;
+  overflow-x: auto;
+}
 
-    .name { word-break: break-all; }
+.code-block pre code.hljs {
+  background: transparent !important;
+  padding: 0 !important;
+  font-family: inherit;
+  font-size: 14px;
+}
 
-    .size {
-      width: 160px;
-      color: var(--muted);
-      text-align: right;
-      white-space: nowrap;
-    }
+.table-wrap {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel);
+}
 
-    a {
-      color: var(--accent);
-      text-decoration: none;
-    }
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
 
-    a:hover { text-decoration: underline; }
+td {
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
 
-    footer {
-      margin-top: 28px;
-      color: var(--muted);
-      font-size: 13px;
-    }
+tr:last-child td { border-bottom: 0; }
+tr:hover { background: var(--accent-soft); }
 
-    @media (max-width: 640px) {
-      main { margin: 28px auto; }
-      td { padding: 10px; }
-      .type { width: 90px; }
-      .size { display: none; }
-    }
-  </style>
+.type {
+  width: 130px;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+}
+
+.name { word-break: break-all; }
+
+.size {
+  width: 160px;
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover { text-decoration: underline; }
+
+footer {
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+@media (max-width: 640px) {
+  main { margin: 28px auto; }
+  td { padding: 10px; }
+  .type { width: 90px; }
+  .size { display: none; }
+}
+</style>
 </head>
 <body>
   <main>
@@ -221,28 +259,34 @@
     </section>
 
     <footer>
-      Generated at 2026-07-05T02:31:27.516890+00:00
+      Generated at 2026-07-05T03:48:20.975498+00:00
     </footer>
   </main>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
   <script>
-    function copyUsage(btn) {
-      const code = document.getElementById('usage-code');
-      if (!code) return;
+function copyCode(btn) {
+  const block = btn.closest('.code-block');
+  const codeEl = block ? block.querySelector('code') : null;
+  if (!codeEl) return;
 
-      navigator.clipboard.writeText(code.textContent).then(() => {
-        const original = btn.textContent;
-        btn.textContent = 'copied';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = original;
-          btn.classList.remove('copied');
-        }, 1400);
-      }).catch(() => {
-        btn.textContent = 'failed';
-        setTimeout(() => { btn.textContent = 'copy'; }, 1400);
-      });
-    }
-  </script>
+  navigator.clipboard.writeText(codeEl.textContent).then(() => {
+    const original = btn.textContent;
+    btn.textContent = 'copied';
+    btn.classList.add('copied');
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.classList.remove('copied');
+    }, 1400);
+  }).catch(() => {
+    btn.textContent = 'failed';
+    setTimeout(() => { btn.textContent = 'copy'; }, 1400);
+  });
+}
+
+if (window.hljs) {
+  hljs.highlightAll();
+}
+</script>
 </body>
 </html>

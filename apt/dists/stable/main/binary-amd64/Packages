@@ -1,14 +1,14 @@
 Package: tar-install
-Version: 0.1.1-1
+Version: 0.1.2-1
 Architecture: amd64
 Maintainer: TamKungZ_ <kitthiwat.phimpromma@proton.me>
-Installed-Size: 345
+Installed-Size: 346
 Depends: libc6 (>= 2.34), liblzma5 (>= 5.1.1alpha+20120614), tar-install (>= 0.1.0)
-Filename: pool/main/t/tar-install/tar-install_0.1.1-1_amd64.deb
-Size: 144284
-MD5sum: 81de24e103bb678d288648b8e0bf3a0d
-SHA1: 0736d8c6335ba35f926ab237f9528fc26b130385
-SHA256: 4e5c0ffb73994ba1a4d3ad709b59afbc646b6966e3951230cee36f08b9ec12c5
+Filename: pool/main/t/tar-install/tar-install_0.1.2-1_amd64.deb
+Size: 144448
+MD5sum: 0ae371bdd8abdf3119d0ae86cc397632
+SHA1: 5ca5356a66df02bc937c46d7c011c04218f20407
+SHA256: 145bdfe59914f4b9e6818aa9183a3d519b5395e676b9eeea6429bd5e7b36a14f
 Section: utils
 Priority: optional
 Homepage: https://packages.tamkungz.me/apps/tarminal/
@@ -18,16 +18,16 @@ Description: Library core for safely installing Linux app tarballs into desktop-
  This package provides the tar-install command stub and shared project identity.
 
 Package: tarminal
-Version: 0.1.1-1
+Version: 0.1.2-1
 Architecture: amd64
 Maintainer: TamKungZ_ <kitthiwat.phimpromma@proton.me>
-Installed-Size: 3396
+Installed-Size: 3528
 Depends: libc6 (>= 2.34), liblzma5 (>= 5.1.1alpha+20120614), tar-install (>= 0.1.0)
-Filename: pool/main/t/tarminal/tarminal_0.1.1-1_amd64.deb
-Size: 994444
-MD5sum: f1cc4f02dd297d56b287d3a7286430b6
-SHA1: c85c0e8591a45c654b7ecdbf2004b76c11fe99be
-SHA256: 809080c2c18fce6aa12cad8e19c26557e640b87b9e89153de41332aa785c565a
+Filename: pool/main/t/tarminal/tarminal_0.1.2-1_amd64.deb
+Size: 1039164
+MD5sum: 1f260e58df0a579bb4d960545a7f4246
+SHA1: 8f4b824ace4dcedada6e4ae039b2fab471297732
+SHA256: a3b8e3302d53cc29eb375a8e44bd4444859feaf1b03f0e1f7dbba4531a7e73f2
 Section: utils
 Priority: optional
 Homepage: https://packages.tamkungz.me/apps/tarminal/
