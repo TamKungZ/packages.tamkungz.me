@@ -23,15 +23,23 @@ AUTHOR_GITHUB_URL = "https://github.com/TamKungZ"
 
 # --- Repository layout ---------------------------------------------------
 
-# Root-level package repository layout:
+# Root-level package repository layout.  release.yml currently publishes
+# apt/rpm/apk/xbps/arch/apps; maven and me remain supported when the package
+# site repo contains JVM artifacts.
 # /apt              APT repository shared by all Debian packages
 # /rpm/<basearch>   RPM repository shared by all RPM packages
+# /apk/<arch>       Alpine APK repository
+# /xbps/<arch>      Void Linux XBPS repository
+# /arch/<arch>      Arch Linux pacman repository
 # /maven            Maven repository, preferred new layout
 # /me               Maven legacy group root, supported for compatibility
 # /apps/<app>       human-readable product pages only
 PROJECT_ROOTS = {
     "apt",
     "rpm",
+    "apk",
+    "xbps",
+    "arch",
     "maven",
     "me",  # legacy Maven group root
     "apps",
@@ -79,12 +87,11 @@ APP_README_SOURCES = {
 UsageBlock = tuple[str, str, str]
 
 
-def root_usage_blocks(base_url: str, maven_repo_url: str) -> list[UsageBlock]:
-    return [
-        (
-            "Debian / Ubuntu / Zorin",
-            "bash",
-            f"""curl -fsSL {base_url}/gpg.key | \\
+def apt_usage_block(base_url: str) -> UsageBlock:
+    return (
+        "Debian / Ubuntu / Zorin",
+        "bash",
+        f"""curl -fsSL {base_url}/gpg.key | \\
   sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {base_url}/apt stable main" | \\
@@ -92,11 +99,14 @@ echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {base
 
 sudo apt update
 sudo apt install tarminal""",
-        ),
-        (
-            "Fedora / RPM",
-            "bash",
-            f"""sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
+    )
+
+
+def rpm_usage_block(base_url: str) -> UsageBlock:
+    return (
+        "Fedora / RPM",
+        "bash",
+        f"""sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
 [tamkungz-packages]
 name=TamKungZ Packages
 baseurl={base_url}/rpm/$basearch/
@@ -107,62 +117,92 @@ gpgkey={base_url}/gpg.key
 EOF
 
 sudo dnf install tarminal""",
-        ),
-        (
-            "Maven / Gradle",
-            "groovy",
-            f"""repositories {{
+    )
+
+
+def alpine_usage_block(base_url: str) -> UsageBlock:
+    return (
+        "Alpine APK",
+        "bash",
+        f"""sudo mkdir -p /etc/apk/keys
+curl -fsSL {base_url}/apk/tamkungz.rsa.pub | \\
+  sudo tee /etc/apk/keys/tamkungz.rsa.pub >/dev/null
+
+echo "{base_url}/apk/$(apk --print-arch)" | \\
+  sudo tee -a /etc/apk/repositories
+
+sudo apk update
+sudo apk add tarminal""",
+    )
+
+
+def void_usage_block(base_url: str) -> UsageBlock:
+    return (
+        "Void XBPS",
+        "bash",
+        f"""sudo mkdir -p /etc/xbps.d
+sudo tee /etc/xbps.d/tamkungz.conf >/dev/null <<'EOF'
+repository={base_url}/xbps/x86_64
+EOF
+
+sudo xbps-install -S
+sudo xbps-install tarminal""",
+    )
+
+
+def arch_usage_block(base_url: str) -> UsageBlock:
+    return (
+        "Arch Linux",
+        "bash",
+        f"""# Add the repository to /etc/pacman.conf after importing/trusting the
+# repository signing key used for {base_url}/gpg.key.
+sudo tee -a /etc/pacman.conf >/dev/null <<'EOF'
+[tamkungz]
+Server = {base_url}/arch/$arch
+SigLevel = DatabaseRequired PackageOptional
+EOF
+
+sudo pacman -Sy tarminal""",
+    )
+
+
+def maven_usage_block(maven_repo_url: str) -> UsageBlock:
+    return (
+        "Maven / Gradle",
+        "groovy",
+        f"""repositories {{
     maven {{
         name = "TamKungZ Packages"
         url = uri("{maven_repo_url}")
     }}
 }}""",
-        ),
+    )
+
+
+def root_usage_blocks(base_url: str, maven_repo_url: str | None = None) -> list[UsageBlock]:
+    blocks = [
+        apt_usage_block(base_url),
+        rpm_usage_block(base_url),
+        alpine_usage_block(base_url),
+        void_usage_block(base_url),
+        arch_usage_block(base_url),
     ]
+
+    if maven_repo_url:
+        blocks.append(maven_usage_block(maven_repo_url))
+
+    return blocks
 
 
 def tarminal_usage_blocks(base_url: str) -> list[UsageBlock]:
     return [
-        (
-            "Debian / Ubuntu / Zorin",
-            "bash",
-            f"""curl -fsSL {base_url}/gpg.key | \\
-  sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
-
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {base_url}/apt stable main" | \\
-  sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
-
-sudo apt update
-sudo apt install tarminal""",
-        ),
-        (
-            "Fedora / RPM",
-            "bash",
-            f"""sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
-[tamkungz-packages]
-name=TamKungZ Packages
-baseurl={base_url}/rpm/$basearch/
-enabled=1
-gpgcheck=0
-repo_gpgcheck=1
-gpgkey={base_url}/gpg.key
-EOF
-
-sudo dnf install tarminal""",
-        ),
+        apt_usage_block(base_url),
+        rpm_usage_block(base_url),
+        alpine_usage_block(base_url),
+        void_usage_block(base_url),
+        arch_usage_block(base_url),
     ]
 
 
 def maven_usage_blocks(maven_repo_url: str) -> list[UsageBlock]:
-    return [
-        (
-            "Gradle",
-            "groovy",
-            f"""repositories {{
-    maven {{
-        name = "TamKungZ Packages"
-        url = uri("{maven_repo_url}")
-    }}
-}}""",
-        ),
-    ]
+    return [maven_usage_block(maven_repo_url)]

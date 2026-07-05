@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 import re
 import urllib.error
 import urllib.request
@@ -11,7 +12,27 @@ from pathlib import Path
 import pkg_data as data
 import pkg_render as render
 
-ROOT = Path(__file__).resolve().parent.parent
+
+
+def find_repo_root() -> Path:
+    """Return the package-site root in release.yml and local runs.
+
+    release.yml runs this as scripts/generate-package-indexes.py after cd-ing
+    into the cloned packages.tamkungz.me repo, while local testing often runs
+    it directly from the repo root.  Do not use GITHUB_WORKSPACE here: in the
+    publish job that variable points to the source repo, not packages-site.
+    """
+    explicit_root = os.environ.get("PACKAGE_INDEX_ROOT")
+    if explicit_root:
+        return Path(explicit_root).resolve()
+
+    script_dir = Path(__file__).resolve().parent
+    if script_dir.name == "scripts":
+        return script_dir.parent
+    return script_dir
+
+
+ROOT = find_repo_root()
 
 GENERATED_PAGES: list[Path] = []
 
@@ -32,10 +53,12 @@ def canonical_url(directory: Path) -> str:
     return data.BASE_URL + path
 
 
-def maven_url() -> str:
+def maven_url() -> str | None:
     if (ROOT / "maven").exists():
         return data.BASE_URL + "/maven/"
-    return data.BASE_URL + "/"
+    if (ROOT / "me").exists():
+        return data.BASE_URL + "/"
+    return None
 
 
 # --- Filesystem scanning --------------------------------------------------
@@ -95,16 +118,36 @@ def file_kind(path: Path) -> str:
 
     if name == "gpg.key":
         return "gpg key"
+    if name.endswith((".rsa.pub", ".pem.pub")) or suffix == ".pub":
+        return "public key"
+    if name == "sha256sums":
+        return "checksum"
+
     if name in {"inrelease", "release", "release.gpg"}:
         return "apt metadata"
     if name == "packages" or name == "packages.gz":
         return "apt index"
+    if name == "apkindex.tar.gz":
+        return "apk index"
+    if name.endswith((".db", ".db.tar.gz", ".files", ".files.tar.gz")):
+        return "pacman metadata"
     if name == "repomd.xml" or name == "repomd.xml.asc":
         return "rpm metadata"
+
     if suffix == ".rpm":
         return "rpm"
     if suffix == ".deb":
         return "deb"
+    if suffix == ".apk":
+        return "apk"
+    if suffix == ".xbps":
+        return "xbps"
+    if suffixes.endswith(".pkg.tar.zst"):
+        return "pacman package"
+    if suffix == ".snap":
+        return "snap"
+    if suffix == ".flatpak":
+        return "flatpak"
     if suffixes.endswith(".tar.xz") or suffixes.endswith(".tar.gz") or suffixes.endswith(".tar.zst"):
         return "archive"
     if suffix == ".jar":
@@ -115,7 +158,7 @@ def file_kind(path: Path) -> str:
         return "module"
     if suffix in {".sha1", ".sha256", ".sha512", ".md5"}:
         return "checksum"
-    if suffix == ".asc":
+    if suffix in {".asc", ".sig"}:
         return "signature"
     if name == "maven-metadata.xml":
         return "metadata"
@@ -222,8 +265,9 @@ def page_description(directory: Path) -> str:
 
     if path == "/":
         return (
-            "Public package repository for TamKungZ_ projects, including Maven artifacts, "
-            "APT packages, RPM packages, signatures, and release metadata."
+            "Public package repository for TamKungZ_ projects, including APT, RPM, "
+            "Alpine APK, Void XBPS, Arch pacman repositories, release assets, "
+            "signatures, and metadata."
         )
 
     if path == "/apt/" or path.startswith("/apt/"):
@@ -232,8 +276,17 @@ def page_description(directory: Path) -> str:
     if path == "/rpm/" or path.startswith("/rpm/"):
         return "RPM repository shared by TamKungZ_ Linux packages."
 
+    if path == "/apk/" or path.startswith("/apk/"):
+        return "Alpine APK repository shared by TamKungZ_ Linux packages."
+
+    if path == "/xbps/" or path.startswith("/xbps/"):
+        return "Void Linux XBPS repository shared by TamKungZ_ Linux packages."
+
+    if path == "/arch/" or path.startswith("/arch/"):
+        return "Arch Linux pacman repository shared by TamKungZ_ Linux packages."
+
     if path == "/apps/":
-        return "Human-readable app pages. Package downloads are served from /apt and /rpm."
+        return "Human-readable app pages. Package downloads are served from /apt, /rpm, /apk, /xbps, and /arch."
 
     if path.startswith("/apps/"):
         app_name = directory.name
@@ -256,7 +309,8 @@ def page_usage(directory: Path) -> list[tuple[str, str, str]] | None:
     if path == "/apps/tarminal/":
         return data.tarminal_usage_blocks(data.BASE_URL)
     if path.startswith("/maven/") or path.startswith("/me/"):
-        return data.maven_usage_blocks(maven_url())
+        repo_url = maven_url() or data.BASE_URL + "/"
+        return data.maven_usage_blocks(repo_url)
 
     return None
 
