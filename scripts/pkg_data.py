@@ -154,15 +154,17 @@ def arch_usage_block(base_url: str) -> UsageBlock:
     return (
         "Arch Linux",
         "bash",
-        f"""# Add the repository to /etc/pacman.conf after importing/trusting the
-# repository signing key used for {base_url}/gpg.key.
+        f"""curl -fsSL {base_url}/gpg.key | sudo pacman-key --add -
+sudo pacman-key --lsign-key release@tamkungz.me || true
+
 sudo tee -a /etc/pacman.conf >/dev/null <<'EOF'
 [tamkungz]
 Server = {base_url}/arch/$arch
 SigLevel = DatabaseRequired PackageOptional
 EOF
 
-sudo pacman -Sy tarminal""",
+sudo pacman -Sy
+sudo pacman -S tarminal""",
     )
 
 

@@ -453,33 +453,33 @@
         <div class="card">
           <h3><i class="fa-brands fa-ubuntu"></i> Debian / Ubuntu / Zorin</h3>
           <div class="code-block">
-            <button class="copy-btn" onclick="copyCode(this, 'curl -fsSL https://packages.tamkungz.me/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg\necho \"deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main\" | sudo tee /etc/apt/sources.list.d/tamkungz-packages.list\nsudo apt update\nsudo apt install tarminal')"><i class="fa-regular fa-copy"></i> Copy</button>
+            <button class="copy-btn" onclick="copyCode(this, `curl -fsSL https://packages.tamkungz.me/gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg\necho &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main&quot; | sudo tee /etc/apt/sources.list.d/tamkungz-packages.list\nsudo apt update\nsudo apt install tarminal`)"><i class="fa-regular fa-copy"></i> Copy</button>
             <pre><code class="language-bash">curl -fsSL https://packages.tamkungz.me/gpg.key | \
-  sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
+            sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main" | \
-  sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
+          echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main" | \
+            sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
-sudo apt update
-sudo apt install tarminal</code></pre>
+          sudo apt update
+          sudo apt install tarminal</code></pre>
           </div>
-        </div>
-        <div class="card">
-          <h3><i class="fa-brands fa-fedora"></i> Fedora / RPM</h3>
-          <div class="code-block">
-            <button class="copy-btn" onclick="copyCode(this, 'sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<EOF\n[tamkungz-packages]\nname=TamKungZ Packages\nbaseurl=https://packages.tamkungz.me/rpm/$basearch/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packages.tamkungz.me/gpg.key\nEOF\nsudo dnf install tarminal')"><i class="fa-regular fa-copy"></i> Copy</button>
-            <pre><code class="language-bash">sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
-[tamkungz-packages]
-name=TamKungZ Packages
-baseurl=https://packages.tamkungz.me/rpm/$basearch/
-enabled=1
-gpgcheck=0
-repo_gpgcheck=1
-gpgkey=https://packages.tamkungz.me/gpg.key
-EOF
-
-sudo dnf install tarminal</code></pre>
           </div>
+          <div class="card">
+            <h3><i class="fa-brands fa-fedora"></i> Fedora / RPM</h3>
+            <div class="code-block">
+              <button class="copy-btn" onclick="copyCode(this, `sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'\n[tamkungz-packages]\nname=TamKungZ Packages\nbaseurl=https://packages.tamkungz.me/rpm/$basearch/\nenabled=1\ngpgcheck=0\nrepo_gpgcheck=1\ngpgkey=https://packages.tamkungz.me/gpg.key\nEOF\nsudo dnf install tarminal`)"><i class="fa-regular fa-copy"></i> Copy</button>
+              <pre><code class="language-bash">sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
+          [tamkungz-packages]
+          name=TamKungZ Packages
+          baseurl=https://packages.tamkungz.me/rpm/$basearch/
+          enabled=1
+          gpgcheck=0
+          repo_gpgcheck=1
+          gpgkey=https://packages.tamkungz.me/gpg.key
+          EOF
+
+          sudo dnf install tarminal</code></pre>
+            </div>
           <p class="note-text"><i class="fa-solid fa-circle-info"></i> <code>gpgcheck=0</code> currently used (repo metadata signed; RPM signing coming later).</p>
         </div>
       </div>
