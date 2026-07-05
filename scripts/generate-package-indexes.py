@@ -330,7 +330,11 @@ def make_index(directory: Path) -> None:
     if usage:
         usage_block = f"""
     <section class="usage" aria-label="Usage example">
-      <pre>{escape(usage)}</pre>
+      <div class="usage-head">
+        <span>usage</span>
+        <button class="copy-btn" onclick="copyUsage(this)" type="button">copy</button>
+      </div>
+      <pre id="usage-code">{escape(usage)}</pre>
     </section>
 """
 
@@ -375,26 +379,26 @@ def make_index(directory: Path) -> None:
 
     body {{
       margin: 0;
-      background:
-        radial-gradient(circle at top left, rgba(169, 255, 175, 0.08), transparent 320px),
-        var(--bg);
+      background: var(--bg);
       color: var(--text);
       font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      font-size: 15px;
       line-height: 1.6;
     }}
 
     main {{
-      width: min(1040px, calc(100% - 32px));
-      margin: 48px auto;
+      width: min(960px, calc(100% - 32px));
+      margin: 44px auto;
     }}
 
-    header {{ margin-bottom: 28px; }}
+    header {{ margin-bottom: 24px; }}
 
     h1 {{
       margin: 0;
-      font-size: clamp(28px, 4vw, 42px);
-      letter-spacing: -0.04em;
-      line-height: 1.1;
+      font-size: clamp(22px, 3.2vw, 32px);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
     }}
 
     .subtitle {{
@@ -406,26 +410,65 @@ def make_index(directory: Path) -> None:
     .path {{
       display: inline-flex;
       align-items: center;
-      margin-top: 20px;
-      padding: 7px 11px;
+      margin-top: 16px;
+      padding: 6px 10px;
       border: 1px solid var(--line);
-      border-radius: 8px;
+      border-radius: 6px;
       background: var(--panel);
       color: var(--accent);
-      font-size: 14px;
+      font-size: 13px;
     }}
 
     .usage {{
-      margin: 22px 0 26px;
-      padding: 16px;
-      overflow-x: auto;
+      margin: 20px 0 24px;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: linear-gradient(180deg, var(--panel-2), var(--panel));
+      border-radius: 10px;
+      background: var(--panel);
+      overflow: hidden;
+    }}
+
+    .usage-head {{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel-2);
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }}
+
+    .copy-btn {{
+      font: inherit;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      background: transparent;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 3px 10px;
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+    }}
+
+    .copy-btn:hover {{
+      color: var(--accent);
+      border-color: var(--accent);
+    }}
+
+    .copy-btn.copied {{
+      color: var(--accent);
+      border-color: var(--accent);
+      background: var(--accent-soft);
     }}
 
     pre {{
       margin: 0;
+      padding: 14px;
+      overflow-x: auto;
       color: #dcdcdc;
       white-space: pre;
     }}
@@ -433,8 +476,8 @@ def make_index(directory: Path) -> None:
     .table-wrap {{
       overflow: hidden;
       border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(15, 15, 15, 0.72);
+      border-radius: 10px;
+      background: var(--panel);
     }}
 
     table {{
@@ -509,6 +552,26 @@ def make_index(directory: Path) -> None:
       Generated at {escape(now)}
     </footer>
   </main>
+
+  <script>
+    function copyUsage(btn) {{
+      const code = document.getElementById('usage-code');
+      if (!code) return;
+
+      navigator.clipboard.writeText(code.textContent).then(() => {{
+        const original = btn.textContent;
+        btn.textContent = 'copied';
+        btn.classList.add('copied');
+        setTimeout(() => {{
+          btn.textContent = original;
+          btn.classList.remove('copied');
+        }}, 1400);
+      }}).catch(() => {{
+        btn.textContent = 'failed';
+        setTimeout(() => {{ btn.textContent = 'copy'; }}, 1400);
+      }});
+    }}
+  </script>
 </body>
 </html>
 """
