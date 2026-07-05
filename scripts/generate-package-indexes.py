@@ -91,17 +91,16 @@ def is_visible_root_dir(path: Path) -> bool:
 
 
 def is_app_page_dir(directory: Path) -> bool:
-    """True for a leaf /apps/<name>/ directory - i.e. an individual app's
-    page, as opposed to the /apps/ index itself or something nested deeper.
-
-    These pages are meant to be hand-authored (see PROJECT_ROOTS docs in
+    """True for any directory under /apps/ that should be hand-authored.
+    
+    App pages are meant to be hand-authored (see PROJECT_ROOTS docs in
     pkg_data.py), so the generator should never overwrite an index.html
     someone already wrote there."""
     try:
         parts = directory.relative_to(ROOT).parts
     except ValueError:
         return False
-    return len(parts) == 2 and parts[0] == "apps"
+    return len(parts) >= 2 and parts[0] == "apps"
 
 
 def has_existing_index(directory: Path) -> bool:
