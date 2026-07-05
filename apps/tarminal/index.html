@@ -1,273 +1,491 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>TamKungZ_ Packages - /apps/tarminal/</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Tarminal installs Linux application tarballs as proper desktop apps.">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <!-- Primary SEO Meta Tags -->
+  <title>Tarminal 0.1.3 • Linux tarball installer by TamKungZ_ | proper desktop apps</title>
+  <meta name="description" content="Tarminal by TamKungZ_ installs Linux application tarballs as proper desktop apps with commands, icons, and clean removal. v0.1.3 brings improved filename parsing, platform guards, and smarter version detection.">
+  <meta name="keywords" content="tarminal, TamKungZ_, linux tarball installer, tar install, linux app installer, tarball to desktop, tar.xz install, blender linux install">
+  <meta name="author" content="TamKungZ_">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#78e398">
-
   <link rel="canonical" href="https://packages.tamkungz.me/apps/tarminal/">
-  <link rel="icon" href="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/maven/tamkungz-repo-favicon-v2-nobg.ico" type="image/x-icon">
-  <link rel="shortcut icon" href="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/maven/tamkungz-repo-favicon-v2-nobg.ico" type="image/x-icon">
-
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="TamKungZ_ Packages - /apps/tarminal/">
-  <meta property="og:description" content="Tarminal installs Linux application tarballs as proper desktop apps.">
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/tarminal_temporary_icon.ico">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Tarminal 0.1.3 by TamKungZ_ - Tarball to Desktop App Installer">
+  <meta property="og:description" content="Improved filename parsing, platform detection, and safer installs. Tarminal now handles dotted versions and rejects non-Linux archives by default.">
+  <meta property="og:image" content="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/Screenshot_Tarminal.png">
   <meta property="og:url" content="https://packages.tamkungz.me/apps/tarminal/">
-  <meta property="og:site_name" content="TamKungZ_ Packages">
-
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="TamKungZ_ Packages - /apps/tarminal/">
-  <meta name="twitter:description" content="Tarminal installs Linux application tarballs as proper desktop apps.">
-
+  <meta property="og:type" content="website">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Tarminal 0.1.3 by TamKungZ_ - Linux Tarball Installer">
+  <meta name="twitter:description" content="Smarter parsing, platform guards, and version detection improvements. Now handles real-world filenames like blender-5.1.2-linux-x64.tar.xz.">
+  <meta name="twitter:image" content="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/Screenshot_Tarminal.png">
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Tarminal",
+    "operatingSystem": "Linux",
+    "applicationCategory": "DeveloperApplication",
+    "version": "0.1.3",
+    "description": "Installs Linux application tarballs as proper desktop apps with command, icon, and desktop entry. Created by TamKungZ_.",
+    "image": "https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/Screenshot_Tarminal.png",
+    "url": "https://packages.tamkungz.me/apps/tarminal/",
+    "author": {
+      "@type": "Person",
+      "name": "TamKungZ_"
+    },
+    "releaseNotes": "Improved filename parsing for dotted versions. Fixed architecture parsing for x86_64. Added platform guard for non-Linux archives."
+  }
+  </script>
+  <!-- Stylesheets -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <style>
-:root {
-  color-scheme: dark;
-  --bg: #0f0f0f;
-  --panel: #151515;
-  --panel-2: #1b1b1b;
-  --text: #e8e8e8;
-  --muted: #8f8f8f;
-  --line: #2a2a2a;
-  --accent: #78e398;
-  --accent-soft: rgba(120, 227, 152, 0.12);
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-* { box-sizing: border-box; }
+    :root {
+      --bg: #f8f9fc;
+      --surface: #ffffff;
+      --text: #1a1a2e;
+      --text-secondary: #4a4a6a;
+      --accent: #c84b31;
+      --accent-hover: #b03e2a;
+      --accent-soft: #f9e4de;
+      --border: #e2e4ea;
+      --code-bg: #282c34;
+      --radius: 16px;
+      --shadow-sm: 0 4px 12px rgba(0,0,0,0.04);
+      --shadow-card: 0 12px 30px rgba(0,0,0,0.06);
+      --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+    }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  font-size: 15px;
-  line-height: 1.6;
-}
+    body {
+      background: linear-gradient(180deg, #f8f9fc 0%, #f0f2f8 100%);
+      color: var(--text);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.5rem;
+    }
 
-main {
-  width: min(960px, calc(100% - 32px));
-  margin: 44px auto;
-}
+    .container {
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 3rem;
+    }
 
-header { margin-bottom: 24px; }
+    /* Typography */
+    h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      color: var(--text);
+    }
+    h2 {
+      font-size: 2rem;
+      font-weight: 650;
+      margin-bottom: 1.5rem;
+      border-left: 5px solid var(--accent);
+      padding-left: 1.2rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    h3 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-bottom: 0.8rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-h1 {
-  margin: 0;
-  font-size: clamp(22px, 3.2vw, 32px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
-}
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      max-width: 700px;
+      margin-top: 0.5rem;
+    }
 
-.subtitle {
-  margin-top: 10px;
-  color: var(--muted);
-  max-width: 800px;
-}
+    a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    a:hover {
+      color: var(--accent-hover);
+      text-decoration: underline;
+    }
 
-.path {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 16px;
-  padding: 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--panel);
-  color: var(--accent);
-  font-size: 13px;
-}
+    /* Header */
+    .header {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
 
-.usage { margin: 20px 0 24px; }
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
 
-.usage-title {
-  margin: 0 0 8px 2px;
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
+    .badge {
+      background: var(--accent-soft);
+      color: var(--accent);
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .version-badge {
+      background: #2d2d3a;
+      color: white;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
 
-.code-block {
-  margin-bottom: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel);
-  overflow: hidden;
-}
+    .author-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      font-size: 0.95rem;
+      margin-top: 0.3rem;
+    }
 
-.code-block:last-child { margin-bottom: 0; }
+    .screenshot {
+      width: 100%;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border);
+      margin: 0.5rem 0 1.5rem;
+      transition: transform 0.2s;
+    }
+    .screenshot:hover {
+      transform: scale(1.01);
+    }
 
-.code-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--line);
-  background: var(--panel-2);
-}
+    /* Grid & Cards */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.8rem;
+      margin-top: 1rem;
+    }
 
-.code-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  color: var(--muted);
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      transition: box-shadow 0.2s;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-card);
+    }
 
-.code-lang {
-  flex: none;
-  padding: 2px 7px;
-  border: 1px solid currentColor;
-  border-radius: 5px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
+    .changelog-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 1.8rem;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid var(--border);
+      margin-bottom: 1.5rem;
+    }
 
-.copy-btn {
-  flex: none;
-  font: inherit;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 3px 10px;
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
+    /* Code blocks with highlight.js */
+    pre {
+      background: var(--code-bg);
+      padding: 1.2rem;
+      border-radius: 12px;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin: 1rem 0;
+      border: 1px solid #3a3e4a;
+      position: relative;
+    }
+    pre code {
+      font-family: var(--font-mono);
+      font-size: inherit;
+    }
 
-.copy-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
+    code {
+      font-family: var(--font-mono);
+      background: #eef0f5;
+      padding: 0.2em 0.5em;
+      border-radius: 5px;
+      font-size: 0.9em;
+      color: #2d2d3a;
+    }
+    pre code {
+      background: transparent;
+      padding: 0;
+      color: #abb2bf;
+    }
 
-.copy-btn.copied {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
+    /* Tags */
+    .changelog-meta {
+      display: flex;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    .tag {
+      padding: 0.25rem 0.9rem;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .tag.fixed { background: #ffebee; color: #b71c1c; }
+    .tag.changed { background: #fff3e0; color: #e65100; }
+    .tag.added { background: #e3f2fd; color: #0d47a1; }
+    .tag.security { background: #f3e5f5; color: #6a1b9a; }
+    .tag.notes { background: #f5f5f5; color: #424242; }
 
-.code-block pre {
-  margin: 0;
-  padding: 14px;
-  overflow-x: auto;
-}
+    .button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: white;
+      padding: 0.7rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+    .button:hover {
+      background: var(--accent-hover);
+      text-decoration: none;
+      transform: translateY(-1px);
+    }
 
-.code-block pre code.hljs {
-  background: transparent !important;
-  padding: 0 !important;
-  font-family: inherit;
-  font-size: 14px;
-}
+    .recipe-box {
+      background: #f6f7fb;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border: 1px solid var(--border);
+    }
 
-.table-wrap {
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel);
-}
+    .help-screenshot {
+      width: 100%;
+      max-width: 400px;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-card);
+      border: 1px solid var(--border);
+    }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
+    hr {
+      border: 0.5px solid var(--border);
+      margin: 1.5rem 0;
+    }
 
-td {
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--line);
-  vertical-align: middle;
-}
+    footer {
+      margin-top: 2rem;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+    }
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.5rem;
+    }
 
-tr:last-child td { border-bottom: 0; }
-tr:hover { background: var(--accent-soft); }
-
-.type {
-  width: 130px;
-  color: var(--muted);
-  text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-}
-
-.name { word-break: break-all; }
-
-.size {
-  width: 160px;
-  color: var(--muted);
-  text-align: right;
-  white-space: nowrap;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover { text-decoration: underline; }
-
-footer {
-  margin-top: 28px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-@media (max-width: 640px) {
-  main { margin: 28px auto; }
-  td { padding: 10px; }
-  .type { width: 90px; }
-  .size { display: none; }
-}
-</style>
+    @media (max-width: 600px) {
+      h1 { font-size: 2.3rem; }
+      h2 { font-size: 1.6rem; }
+      body { padding: 1.2rem 0.8rem; }
+    }
+  </style>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 </head>
 <body>
-  <main>
-    <header>
-      <h1>TamKungZ_ Packages - /apps/tarminal/</h1>
-      <div class="subtitle">Tarminal installs Linux application tarballs as proper desktop apps.</div>
-      <div class="path">/apps/tarminal/</div>
+  <div class="container">
+    
+    <!-- Hero / Header -->
+    <header class="header">
+      <div class="logo-area">
+        <h1><i class="fa-solid fa-terminal" style="color: var(--accent); font-size: 2.8rem;"></i> Tarminal</h1>
+        <span class="version-badge"><i class="fa-solid fa-code-branch"></i> v0.1.3</span>
+        <span class="badge"><i class="fa-solid fa-check-circle"></i> stable preview</span>
+      </div>
+      <div class="author-tag">
+        <i class="fa-solid fa-user-astronaut"></i> by <strong>TamKungZ_</strong>
+      </div>
+      <p class="subtitle">
+        <strong>Tarminal</strong> installs Linux application tarballs as proper desktop apps — with commands, icons, menus, and clean removal.
+      </p>
+      <p style="color: var(--text-secondary); max-width: 700px;">
+        Instead of manually extracting <code>.tar.xz</code> and running random binaries, Tarminal integrates apps into your system safely.
+      </p>
+      
+      <img 
+        src="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/Screenshot_Tarminal.png" 
+        alt="Tarminal terminal screenshot showing app installation from tarball by TamKungZ_" 
+        class="screenshot"
+        loading="lazy"
+        width="1100"
+        height="600"
+      >
     </header>
 
-    <section class="usage" aria-label="Usage examples">
-      <div class="usage-title">usage</div>
-
-      <div class="code-block">
-        <div class="code-head">
-          <div class="code-title">
-            <span class="code-lang" style="color: #78e398;">bash</span>
-            <span>Debian / Ubuntu / Zorin</span>
-          </div>
-          <button class="copy-btn" onclick="copyCode(this)" type="button">copy</button>
+    <!-- Latest Changelog 0.1.3 -->
+    <section aria-labelledby="changelog-heading">
+      <h2 id="changelog-heading"><i class="fa-solid fa-clipboard-list"></i> What's new in Tarminal 0.1.3</h2>
+      <div class="changelog-card">
+        <div class="changelog-meta">
+          <span class="tag fixed"><i class="fa-solid fa-wrench"></i> fixed</span>
+          <span class="tag changed"><i class="fa-solid fa-rotate"></i> changed</span>
+          <span class="tag notes"><i class="fa-solid fa-note-sticky"></i> notes</span>
         </div>
-        <pre><code class="language-bash">curl -fsSL https://packages.tamkungz.me/gpg.key | \
+        <h3><i class="fa-solid fa-bug-slash" style="color:#b71c1c;"></i> Fixed</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>Improved filename parsing for dotted versions such as <code>blender-5.1.2-linux-x64.tar.xz</code>.</li>
+          <li>Fixed architecture parsing for <code>x86_64</code> filenames.</li>
+          <li>Fixed false version detection where architecture fragments such as <code>64</code> were stored as app versions.</li>
+          <li>Added recognition for non-Linux OS tokens such as <code>macos</code>, <code>darwin</code>, <code>osx</code>, <code>windows</code>, and <code>win64</code>.</li>
+          <li>Added platform guard before install so non-Linux archives such as <code>nvim-macos-x86_64.tar.gz</code> are rejected on Linux by default.</li>
+        </ul>
+        <h3><i class="fa-solid fa-arrows-rotate" style="color:#e65100;"></i> Changed</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>If no reliable version is found from the archive filename, Tarminal now stores the version as <code>unknown</code>/<code>None</code> instead of guessing from weak numeric tokens.</li>
+          <li><code>tarminal list</code> now displays <code>unknown</code> when version metadata is not available.</li>
+          <li>User-provided values from CLI flags, <code>--config</code>, or recipe YAML still take priority over filename guesses.</li>
+        </ul>
+        <h3><i class="fa-solid fa-lightbulb" style="color:#f9a825;"></i> Notes</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary);">
+          <li>Use <code>--force</code> only when you intentionally want to override platform detection.</li>
+          <li>This release is mainly a parser and safety improvement for real-world release filenames.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Changelog 0.1.2 -->
+    <section aria-labelledby="changelog-0-1-2">
+      <h2 id="changelog-0-1-2"><i class="fa-solid fa-clock-rotate-left"></i> Tarminal 0.1.2</h2>
+      <div class="changelog-card">
+        <div class="changelog-meta">
+          <span class="tag fixed"><i class="fa-solid fa-wrench"></i> fixed</span>
+          <span class="tag added"><i class="fa-solid fa-plus"></i> added</span>
+          <span class="tag notes"><i class="fa-solid fa-note-sticky"></i> notes</span>
+        </div>
+        <h3><i class="fa-solid fa-bug-slash" style="color:#b71c1c;"></i> Fixed</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>Fixed <code>sudo tarminal install &lt;archive&gt;</code> installing into <code>/root/.local/...</code> by default.</li>
+          <li>Root/sudo installs now default to system scope automatically.</li>
+          <li>Normal user installs still default to user scope.</li>
+          <li>Users can still force root-user scope with <code>--scope user</code> when needed.</li>
+        </ul>
+        <h3><i class="fa-solid fa-sparkles" style="color:#0d47a1;"></i> Added</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>Added install progress display for extraction, copying, and desktop integration steps.</li>
+          <li>Added install progress events from the <code>tar-install</code> library for CLI/front-end integration.</li>
+        </ul>
+        <h3><i class="fa-solid fa-lightbulb" style="color:#f9a825;"></i> Notes</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary);">
+          <li><code>sudo tarminal install blender-5.1.2-linux-x64.tar.xz</code> now installs to system locations such as <code>/opt/blender</code> and <code>/usr/local/bin/blender</code>.</li>
+          <li>If a previous version installed Blender into <code>/root/.local</code>, remove it with:</li>
+        </ul>
+        <pre><code class="language-bash">sudo tarminal remove blender --scope user</code></pre>
+      </div>
+    </section>
+
+    <!-- Changelog 0.1.1 -->
+    <section aria-labelledby="changelog-0-1-1">
+      <h2 id="changelog-0-1-1"><i class="fa-solid fa-clock-rotate-left"></i> Tarminal 0.1.1</h2>
+      <div class="changelog-card">
+        <div class="changelog-meta">
+          <span class="tag fixed"><i class="fa-solid fa-wrench"></i> fixed</span>
+          <span class="tag security"><i class="fa-solid fa-shield-halved"></i> security</span>
+          <span class="tag notes"><i class="fa-solid fa-note-sticky"></i> notes</span>
+        </div>
+        <h3><i class="fa-solid fa-bug-slash" style="color:#b71c1c;"></i> Fixed</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>Allow safe relative symlinks when installing Linux tarball applications.</li>
+          <li>Preserve symlinks when copying extracted app files from the staging directory into the final install directory.</li>
+          <li>Fix installation of real-world tarball apps that bundle shared libraries through symlinks, such as Blender.</li>
+        </ul>
+        <h3><i class="fa-solid fa-lock" style="color:#6a1b9a;"></i> Security</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary); margin-bottom:1rem;">
+          <li>Symlink extraction still rejects unsafe targets.</li>
+          <li>Absolute symlink targets are rejected.</li>
+          <li>Symlink targets that escape the archive root through <code>..</code> traversal are rejected.</li>
+          <li>Hard-link entries remain unsupported for now.</li>
+        </ul>
+        <h3><i class="fa-solid fa-lightbulb" style="color:#f9a825;"></i> Notes</h3>
+        <ul style="padding-left:1.4rem; color: var(--text-secondary);">
+          <li>Symlink support is enabled by default because many Linux application tarballs include bundled library symlinks.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Install Section -->
+    <section aria-labelledby="install-heading">
+      <h2 id="install-heading"><i class="fa-solid fa-download"></i> Install Tarminal</h2>
+      <div class="grid-2col">
+        <div class="card">
+          <h3><i class="fa-brands fa-ubuntu"></i> Debian / Ubuntu / Zorin</h3>
+          <pre><code class="language-bash">curl -fsSL https://packages.tamkungz.me/gpg.key | \
   sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main&quot; | \
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main" | \
   sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
 sudo apt update
 sudo apt install tarminal</code></pre>
-      </div>
-
-      <div class="code-block">
-        <div class="code-head">
-          <div class="code-title">
-            <span class="code-lang" style="color: #78e398;">bash</span>
-            <span>Fedora / RPM</span>
-          </div>
-          <button class="copy-btn" onclick="copyCode(this)" type="button">copy</button>
         </div>
-        <pre><code class="language-bash">sudo tee /etc/yum.repos.d/tamkungz-packages.repo &gt;/dev/null &lt;&lt;&#x27;EOF&#x27;
+        <div class="card">
+          <h3><i class="fa-brands fa-fedora"></i> Fedora / RPM</h3>
+          <pre><code class="language-bash">sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
 [tamkungz-packages]
 name=TamKungZ Packages
 baseurl=https://packages.tamkungz.me/rpm/$basearch/
@@ -278,52 +496,143 @@ gpgkey=https://packages.tamkungz.me/gpg.key
 EOF
 
 sudo dnf install tarminal</code></pre>
+          <p style="font-size:0.85rem; color:var(--text-secondary); margin-top:0.5rem;">
+            <i class="fa-solid fa-circle-info"></i> <code>gpgcheck=0</code> currently used (repo metadata signed; RPM signing coming later).
+          </p>
+        </div>
+      </div>
+      <div class="card" style="margin-top:1.5rem;">
+        <h3><i class="fa-brands fa-github"></i> GitHub Releases</h3>
+        <p>Standalone binaries, <code>.deb</code>, <code>.rpm</code>, <code>.tar.xz</code>, SHA256SUMS and GPG signatures available.</p>
+        <a href="https://github.com/TamKungZ/tarminal-tar-install/releases" class="button" style="margin-top:0.8rem;"><i class="fa-solid fa-download"></i> GitHub Releases</a>
       </div>
     </section>
 
-    <section class="table-wrap" aria-label="Directory listing">
-      <table>
-        <tbody>
-          
-            <tr>
-              <td class="type">dir</td>
-              <td class="name"><a href="../">../</a></td>
-              <td class="size"></td>
-            </tr>
-            
-        </tbody>
-      </table>
+    <!-- Usage Section -->
+    <section aria-labelledby="usage-heading">
+      <h2 id="usage-heading"><i class="fa-solid fa-bolt"></i> Usage</h2>
+      <div class="grid-2col">
+        <div>
+          <pre><code class="language-bash"># Inspect tarball
+tarminal inspect ./myapp-1.2.0-linux-x64.tar.xz
+
+# Install with auto detection
+tarminal install ./myapp.tar.xz
+
+# Manual config prompts
+tarminal install ./app.tar.xz --config
+
+# Use a recipe file
+tarminal install ./app.tar.xz --recipe ./app.tarapp.yml
+
+# System-wide install
+sudo tarminal install ./app.tar.xz --system
+
+# List installed apps (shows unknown for missing version)
+tarminal list
+
+# Remove an app
+tarminal remove myapp
+
+# Check installed app
+tarminal doctor myapp</code></pre>
+        </div>
+        <div style="display:flex; align-items:center; justify-content:center;">
+          <img 
+            src="https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/tarminal/Screenshot_Tarminal--help.png" 
+            alt="Tarminal help command output showing available flags and options" 
+            class="help-screenshot"
+            loading="lazy"
+            width="400"
+            height="500"
+          >
+        </div>
+      </div>
     </section>
 
+    <!-- Installation Paths -->
+    <section aria-labelledby="paths-heading">
+      <h2 id="paths-heading"><i class="fa-solid fa-folder-tree"></i> Installation paths</h2>
+      <div class="grid-2col">
+        <div class="card">
+          <h3><i class="fa-solid fa-user"></i> User install</h3>
+          <pre><code class="language-text">App files:   ~/.local/share/tarapp/apps/&lt;app-id&gt;/
+Command:     ~/.local/bin/&lt;command&gt;
+Desktop:     ~/.local/share/applications/&lt;app-id&gt;.desktop
+Icon:        ~/.local/share/icons/hicolor/256x256/apps/&lt;app-id&gt;.*
+State DB:    ~/.local/state/tarapp/apps.json</code></pre>
+        </div>
+        <div class="card">
+          <h3><i class="fa-solid fa-server"></i> System install</h3>
+          <pre><code class="language-text">App files:   /opt/&lt;app-id&gt;/
+Command:     /usr/local/bin/&lt;command&gt;
+Desktop:     /usr/share/applications/&lt;app-id&gt;.desktop
+Icon:        /usr/share/icons/hicolor/256x256/apps/&lt;app-id&gt;.*
+State DB:    /var/lib/tarapp/apps.json</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- Supported formats -->
+    <section>
+      <h2><i class="fa-solid fa-box-archive"></i> Supported archives & detection</h2>
+      <div class="card">
+        <p><strong>Formats:</strong> <code>.tar.xz</code>, <code>.txz</code>, <code>.tar.gz</code>, <code>.tgz</code>, <code>.tar.bz2</code>, <code>.tbz2</code>, <code>.tar</code></p>
+        <p style="margin-top:0.8rem;"><strong><i class="fa-solid fa-microscope"></i> Improved detection (v0.1.3):</strong> Now correctly parses dotted versions and <code>x86_64</code> architecture. Rejects non-Linux archives by default.</p>
+        <p>If detection fails, use <code>--config</code> or a recipe.</p>
+      </div>
+    </section>
+
+    <!-- Recipe section -->
+    <section aria-labelledby="recipe-heading">
+      <h2 id="recipe-heading"><i class="fa-solid fa-file-code"></i> Recipe format</h2>
+      <p>External recipe (<code>--recipe ./app.tarapp.yml</code>) or embedded inside archive as <code>tarapp.yml</code>, <code>.tarapp.yml</code>, etc.</p>
+      <div class="recipe-box">
+        <pre><code class="language-yaml">id: com.example.myapp
+name: My App
+version: 1.0.0
+exec: MyApp
+command: myapp
+icon: assets/icon.png
+desktop:
+  categories:
+    - Utility
+  terminal: false</code></pre>
+      </div>
+      <p style="margin-top:1rem;">Recipes are optional but recommended for reliable community installs.</p>
+    </section>
+
+    <!-- Build Section -->
+    <section>
+      <h2><i class="fa-solid fa-hammer"></i> Build from source</h2>
+      <div class="card">
+        <pre><code class="language-bash">cargo build --workspace
+cargo build --release -p tar-install --bin tar-install
+cargo build --release -p tarminal</code></pre>
+        <p style="font-size:0.9rem; margin-top:0.5rem;"><i class="fa-brands fa-rust"></i> Rust workspace with <code>tar-install</code> library and <code>tarminal</code> CLI.</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-      Generated at 2026-07-05T05:42:55.386599+00:00
+      <div class="footer-links">
+        <a href="https://github.com/TamKungZ/tarminal-tar-install"><i class="fa-brands fa-github"></i> GitHub</a>
+        <a href="https://github.com/TamKungZ/tarminal-tar-install/tree/main/docs"><i class="fa-solid fa-book"></i> Documentation</a>
+        <a href="https://github.com/TamKungZ/tarminal-tar-install/issues"><i class="fa-solid fa-bug"></i> Report Issue</a>
+      </div>
+      <p>© Tarminal · Open-source Linux tarball installer · Created by <strong>TamKungZ_</strong></p>
+      <p style="margin-top:0.4rem;">Built with <i class="fa-brands fa-rust"></i> Rust | Latest: v0.1.3</p>
     </footer>
-  </main>
+  </div>
 
+  <!-- Highlight.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/yaml.min.js"></script>
   <script>
-function copyCode(btn) {
-  const block = btn.closest('.code-block');
-  const codeEl = block ? block.querySelector('code') : null;
-  if (!codeEl) return;
-
-  navigator.clipboard.writeText(codeEl.textContent).then(() => {
-    const original = btn.textContent;
-    btn.textContent = 'copied';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.classList.remove('copied');
-    }, 1400);
-  }).catch(() => {
-    btn.textContent = 'failed';
-    setTimeout(() => { btn.textContent = 'copy'; }, 1400);
-  });
-}
-
-if (window.hljs) {
-  hljs.highlightAll();
-}
-</script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      hljs.highlightAll();
+    });
+  </script>
 </body>
 </html>
