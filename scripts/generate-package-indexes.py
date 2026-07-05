@@ -418,6 +418,15 @@ def main() -> None:
         if any(part.startswith(".") and part not in {".well-known"} for part in relative_parts):
             continue
 
+        # Skip any directory under /apps/ that already has index.html
+        if has_existing_index(directory):
+            try:
+                if directory.relative_to(ROOT).parts[0] == "apps":
+                    GENERATED_PAGES.append(directory)
+                    continue
+            except (ValueError, IndexError):
+                pass
+
         if is_app_page_dir(directory) and has_existing_index(directory):
             # Hand-authored app page - keep it as-is, but still list it in
             # the sitemap so it's discoverable.
