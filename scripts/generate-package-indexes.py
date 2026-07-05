@@ -10,18 +10,18 @@ SITE_NAME = "TamKungZ_ Packages"
 BASE_URL = "https://packages.tamkungz.me"
 FAVICON_URL = "https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/maven/tamkungz-repo-favicon-v2-nobg.ico"
 
-# Keep both layouts supported:
-# - New layout: /maven/me/...
-# - Legacy layout: /me/...
-MAVEN_REPOSITORY_DIRS = [
-    ROOT / "maven",
-    ROOT,
-]
-
+# Root-level package repository layout:
+# /apt              APT repository shared by all Debian packages
+# /rpm/<basearch>   RPM repository shared by all RPM packages
+# /maven            Maven repository, preferred new layout
+# /me               Maven legacy group root, supported for compatibility
+# /apps/<app>       human-readable product pages only
 PROJECT_ROOTS = {
+    "apt",
+    "rpm",
     "maven",
     "me",  # legacy Maven group root
-    "tarminal",
+    "apps",
 }
 
 IGNORE_DIRS = {
@@ -84,22 +84,8 @@ def is_hidden_or_ignored(path: Path) -> bool:
     return False
 
 
-def is_maven_area(path: Path) -> bool:
-    parts = path.relative_to(ROOT).parts if path != ROOT else ()
-    if not parts:
-        return False
-    return parts[0] in {"maven", "me"}
-
-
-def is_tarminal_area(path: Path) -> bool:
-    parts = path.relative_to(ROOT).parts if path != ROOT else ()
-    return bool(parts) and parts[0] == "tarminal"
-
-
 def is_visible_root_dir(path: Path) -> bool:
-    if path.name in PROJECT_ROOTS:
-        return True
-    return False
+    return path.name in PROJECT_ROOTS
 
 
 def file_kind(path: Path) -> str:
@@ -155,12 +141,42 @@ def visible_children(directory: Path) -> list[Path]:
             children.append(child)
             continue
 
-        if directory == ROOT:
-            continue
-
+        # Root-level files are allowed for shared files like /gpg.key.
         children.append(child)
 
     return children
+
+
+def maven_url() -> str:
+    if (ROOT / "maven").exists():
+        return BASE_URL + "/maven/"
+    return BASE_URL + "/"
+
+
+def read_readme_summary(directory: Path) -> str | None:
+    readme = directory / "README.md"
+    if not readme.exists():
+        return None
+
+    text = readme.read_text(encoding="utf-8", errors="replace").strip()
+    if not text:
+        return None
+
+    lines = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            if lines:
+                break
+            continue
+        if line.startswith("#"):
+            continue
+        lines.append(line)
+
+    if not lines:
+        return None
+
+    return " ".join(lines)
 
 
 def page_description(directory: Path) -> str:
@@ -172,8 +188,21 @@ def page_description(directory: Path) -> str:
             "APT packages, RPM packages, signatures, and release metadata."
         )
 
-    if path.startswith("/tarminal/") or path == "/tarminal/":
-        return "APT/RPM package repository and signing key for Tarminal."
+    if path == "/apt/" or path.startswith("/apt/"):
+        return "APT repository shared by TamKungZ_ Linux packages."
+
+    if path == "/rpm/" or path.startswith("/rpm/"):
+        return "RPM repository shared by TamKungZ_ Linux packages."
+
+    if path == "/apps/":
+        return "Human-readable app pages. Package downloads are served from /apt and /rpm."
+
+    if path.startswith("/apps/"):
+        summary = read_readme_summary(directory)
+        if summary:
+            return summary
+        app_name = directory.name
+        return f"Human-readable package page for {app_name}."
 
     if path.startswith("/maven/") or path.startswith("/me/"):
         return "Maven artifacts for TamKungZ_ JVM projects."
@@ -181,32 +210,26 @@ def page_description(directory: Path) -> str:
     return f"Browse public package files in {path}."
 
 
-def maven_url() -> str:
-    if (ROOT / "maven").exists():
-        return BASE_URL + "/maven/"
-    return BASE_URL + "/"
-
-
 def root_usage() -> str:
-    return f"""# Tarminal - Debian / Ubuntu / Zorin
-curl -fsSL {BASE_URL}/tarminal/gpg.key | \\
-  sudo gpg --dearmor -o /usr/share/keyrings/tarminal.gpg
+    return f"""# Debian / Ubuntu / Zorin
+curl -fsSL {BASE_URL}/gpg.key | \\
+  sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tarminal.gpg] {BASE_URL}/tarminal/apt stable main" | \\
-  sudo tee /etc/apt/sources.list.d/tarminal.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {BASE_URL}/apt stable main" | \\
+  sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
 sudo apt update
 sudo apt install tarminal
 
-# Tarminal - Fedora / RPM
-sudo tee /etc/yum.repos.d/tarminal.repo >/dev/null <<'EOF'
-[tarminal]
-name=Tarminal Repository
-baseurl={BASE_URL}/tarminal/rpm/x86_64/
+# Fedora / RPM
+sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
+[tamkungz-packages]
+name=TamKungZ Packages
+baseurl={BASE_URL}/rpm/$basearch/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=1
-gpgkey={BASE_URL}/tarminal/gpg.key
+gpgkey={BASE_URL}/gpg.key
 EOF
 
 sudo dnf install tarminal
@@ -222,24 +245,24 @@ repositories {{
 
 def tarminal_usage() -> str:
     return f"""# Debian / Ubuntu / Zorin
-curl -fsSL {BASE_URL}/tarminal/gpg.key | \\
-  sudo gpg --dearmor -o /usr/share/keyrings/tarminal.gpg
+curl -fsSL {BASE_URL}/gpg.key | \\
+  sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tarminal.gpg] {BASE_URL}/tarminal/apt stable main" | \\
-  sudo tee /etc/apt/sources.list.d/tarminal.list
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {BASE_URL}/apt stable main" | \\
+  sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
 sudo apt update
 sudo apt install tarminal
 
 # Fedora / RPM
-sudo tee /etc/yum.repos.d/tarminal.repo >/dev/null <<'EOF'
-[tarminal]
-name=Tarminal Repository
-baseurl={BASE_URL}/tarminal/rpm/x86_64/
+sudo tee /etc/yum.repos.d/tamkungz-packages.repo >/dev/null <<'EOF'
+[tamkungz-packages]
+name=TamKungZ Packages
+baseurl={BASE_URL}/rpm/$basearch/
 enabled=1
 gpgcheck=0
 repo_gpgcheck=1
-gpgkey={BASE_URL}/tarminal/gpg.key
+gpgkey={BASE_URL}/gpg.key
 EOF
 
 sudo dnf install tarminal"""
@@ -259,7 +282,7 @@ def page_usage(directory: Path) -> str | None:
 
     if path == "/":
         return root_usage()
-    if path == "/tarminal/":
+    if path == "/apps/tarminal/":
         return tarminal_usage()
     if path.startswith("/maven/") or path.startswith("/me/"):
         return maven_usage()
