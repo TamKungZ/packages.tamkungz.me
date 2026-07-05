@@ -27,7 +27,7 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareSourceCode",
+    "@type": ["SoftwareApplication", "SoftwareSourceCode"],
     "name": "Tarminal",
     "operatingSystem": "Linux",
     "applicationCategory": "DeveloperApplication",
@@ -38,7 +38,10 @@
     "url": "https://packages.tamkungz.me/apps/tarminal/",
     "codeRepository": "https://github.com/TamKungZ/tarminal-tar-install/",
     "programmingLanguage": "Rust",
-    "author": { "@type": "Person", "name": "TamKungZ_" },
+    "author": { 
+      "@type": "Person", 
+      "name": "TamKungZ_" 
+    },
     "releaseNotes": "Improved filename parsing for dotted versions. Fixed architecture parsing for x86_64. Added platform guard for non-Linux archives."
   }
   </script>
