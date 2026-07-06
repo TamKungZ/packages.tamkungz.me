@@ -1,12 +1,13 @@
-# TamKungZ Maven Repository
+# TamKungZ Package Repository
 
-Static Maven repository template for:
+Static package repository for TamKungZ_ projects. Maven artifacts are served
+under `/maven/`:
 
 ```gradle
 repositories {
     maven {
-        name = "TamKungZ Maven"
-        url = uri("https://maven.tamkungz.me/")
+        name = "TamKungZ Packages"
+        url = uri("https://packages.tamkungz.me/maven/")
     }
 }
 ```
@@ -21,14 +22,14 @@ repositories {
 6. Set custom domain to:
 
 ```text
-maven.tamkungz.me
+packages.tamkungz.me
 ```
 
 7. In Spaceship DNS, add:
 
 ```text
 Type: CNAME
-Host: maven
+Host: packages
 Value: TamKungZ.github.io
 ```
 
@@ -37,11 +38,12 @@ Value: TamKungZ.github.io
 ## Files that matter
 
 ```text
-CNAME        custom domain for GitHub Pages
-.nojekyll    disables Jekyll processing
-index.html   landing page for humans
-404.html     nicer missing artifact page
-me/          Maven group path starts here
+CNAME          custom domain for GitHub Pages
+.nojekyll      disables Jekyll processing
+index.html     landing page for humans
+404.html       nicer missing package page
+apt/ rpm/ apk/ Linux package repositories
+maven/         Maven repository root
 ```
 
 ## Maven artifact structure
@@ -55,17 +57,18 @@ implementation "me.tamkungz:examplelib:1.0.0"
 The files should look like this:
 
 ```text
-me/
-  tamkungz/
-    examplelib/
-      maven-metadata.xml
-      1.0.0/
-        examplelib-1.0.0.jar
-        examplelib-1.0.0.pom
-        examplelib-1.0.0.module
-        examplelib-1.0.0-sources.jar
-        examplelib-1.0.0.jar.sha1
-        examplelib-1.0.0.pom.sha1
+maven/
+  me/
+    tamkungz/
+      examplelib/
+        maven-metadata.xml
+        1.0.0/
+          examplelib-1.0.0.jar
+          examplelib-1.0.0.pom
+          examplelib-1.0.0.module
+          examplelib-1.0.0-sources.jar
+          examplelib-1.0.0.jar.sha1
+          examplelib-1.0.0.pom.sha1
 ```
 
 This template includes only a sample `.pom` and metadata file.
@@ -98,11 +101,12 @@ Copy the generated content from:
 build/maven-repo/
 ```
 
-into this repository root, commit, and push.
+into `maven/`, commit, and push. The Gradle/Maven output already contains the
+group path, for example `me/tamkungz/...` or `org/ex/...`.
 
 ## Notes
 
 - Use fixed release versions like `1.0.0`.
 - Avoid `+` and `SNAPSHOT` for public docs unless you really need them.
-- Keep this repository mostly Maven files. Put full documentation on another site, for example `repo.tamkungz.me`.
-- If traffic gets too high, move the origin to Bunny/Gcore later and keep the same public URL: `https://maven.tamkungz.me/`.
+- Keep full app documentation in each app repository or under `/apps/`.
+- If traffic gets too high, move the origin to Bunny/Gcore later and keep the same public URL: `https://packages.tamkungz.me/`.

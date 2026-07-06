@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib.util
 import os
 import re
 import urllib.error
@@ -105,6 +106,13 @@ def is_app_page_dir(directory: Path) -> bool:
 
 def has_existing_index(directory: Path) -> bool:
     return (directory / "index.html").exists()
+
+
+def is_maven_tree(directory: Path) -> bool:
+    try:
+        return directory.relative_to(ROOT).parts[0] == "maven"
+    except (ValueError, IndexError):
+        return False
 
 
 def file_kind(path: Path) -> str:
@@ -294,7 +302,7 @@ def page_description(directory: Path) -> str:
             return summary
         return f"Human-readable package page for {app_name}."
 
-    if path.startswith("/maven/") or path.startswith("/me/"):
+    if path.startswith("/maven/"):
         return "Maven artifacts for TamKungZ_ JVM projects."
 
     return f"Browse public package files in {path}."
@@ -307,7 +315,7 @@ def page_usage(directory: Path) -> list[tuple[str, str, str]] | None:
         return data.root_usage_blocks(data.BASE_URL, maven_url())
     if path == "/apps/tarminal/":
         return data.tarminal_usage_blocks(data.BASE_URL)
-    if path.startswith("/maven/") or path.startswith("/me/"):
+    if path.startswith("/maven/"):
         repo_url = maven_url() or data.BASE_URL + "/"
         return data.maven_usage_blocks(repo_url)
 
@@ -403,6 +411,21 @@ def write_sitemap() -> None:
     (ROOT / "sitemap.xml").write_text(content, encoding="utf-8")
 
 
+def generate_maven_indexes() -> list[Path]:
+    maven_script = Path(__file__).resolve().parent / "generate-maven-indexes.py"
+    if not maven_script.exists():
+        return []
+
+    spec = importlib.util.spec_from_file_location("generate_maven_indexes", maven_script)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"Could not load {maven_script}")
+
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+
+    return module.generate_indexes()
+
+
 def main() -> None:
     (ROOT / ".nojekyll").touch()
 
@@ -410,6 +433,9 @@ def main() -> None:
 
     for directory in sorted(ROOT.rglob("*")):
         if not directory.is_dir():
+            continue
+
+        if is_maven_tree(directory):
             continue
 
         relative_parts = directory.relative_to(ROOT).parts
@@ -434,6 +460,8 @@ def main() -> None:
             continue
 
         make_index(directory)
+
+    GENERATED_PAGES.extend(generate_maven_indexes())
 
     write_robots()
     write_sitemap()

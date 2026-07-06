@@ -1,7 +1,7 @@
 repositories {
     maven {
         name = "TamKungZ Maven"
-        url = uri("https://maven.tamkungz.me/")
+        url = uri("https://packages.tamkungz.me/maven/")
     }
 }
 

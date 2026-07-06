@@ -7,6 +7,7 @@ does not touch the filesystem and does not know about directory scanning.
 
 from __future__ import annotations
 
+import json
 from html import escape
 
 # highlight.js is loaded from cdnjs for syntax-highlighted usage snippets.
@@ -315,26 +316,26 @@ def render_author_jsonld(
 ) -> str:
     twitter_handle = author_twitter_handle.lstrip("@")
     twitter_url = f"https://x.com/{twitter_handle}"
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": site_name,
+        "url": base_url,
+        "creator": {
+            "@type": "Person",
+            "name": author_name,
+            "email": f"mailto:{author_email}",
+            "sameAs": [
+                twitter_url,
+                author_github_url,
+            ],
+        },
+    }
+    jsonld = json.dumps(payload, ensure_ascii=False, indent=2).replace("</", "<\\/")
 
-    # Kept as a small hand-built JSON literal (no user input beyond static
-    # config) so this module doesn't need to import json for one block.
     return f"""
   <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": {escape(site_name)!r},
-    "url": {escape(base_url)!r},
-    "creator": {{
-      "@type": "Person",
-      "name": {escape(author_name)!r},
-      "email": "mailto:{escape(author_email)}",
-      "sameAs": [
-        {escape(twitter_url)!r},
-        {escape(author_github_url)!r}
-      ]
-    }}
-  }}
+{jsonld}
   </script>"""
 
 

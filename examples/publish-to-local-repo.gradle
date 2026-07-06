@@ -19,7 +19,7 @@ publishing {
             pom {
                 name = "Example Library"
                 description = "Example artifact published to TamKungZ Maven."
-                url = "https://maven.tamkungz.me/"
+                url = "https://packages.tamkungz.me/maven/"
                 licenses {
                     license {
                         name = "All Rights Reserved"
