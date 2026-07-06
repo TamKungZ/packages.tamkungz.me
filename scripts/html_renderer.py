@@ -10,33 +10,29 @@ from __future__ import annotations
 import json
 from html import escape
 
-# highlight.js is loaded from cdnjs for syntax-highlighted usage snippets.
-# "groovy" isn't in the default bundle, so it's pulled in as an extra file;
-# bash is already part of the default ~40-language bundle.
-HLJS_VERSION = "11.9.0"
-HLJS_CSS_URL = f"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{HLJS_VERSION}/styles/atom-one-dark.min.css"
-HLJS_JS_URL = f"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{HLJS_VERSION}/highlight.min.js"
-HLJS_GROOVY_URL = f"https://cdnjs.cloudflare.com/ajax/libs/highlight.js/{HLJS_VERSION}/languages/groovy.min.js"
-
 # Small accent per language so each block's badge reads at a glance.
 LANG_BADGE_COLORS = {
-    "bash": "#78e398",
-    "groovy": "#e0af68",
-    "ini": "#7aa2f7",
+    "bash": "#03983d",
+    "groovy": "#7a5b12",
+    "ini": "#245b91",
 }
-DEFAULT_BADGE_COLOR = "#8f8f8f"
+DEFAULT_BADGE_COLOR = "#5f6d5f"
 
 PAGE_CSS = """
 :root {
-  color-scheme: dark;
-  --bg: #0f0f0f;
-  --panel: #151515;
-  --panel-2: #1b1b1b;
-  --text: #e8e8e8;
-  --muted: #8f8f8f;
-  --line: #2a2a2a;
-  --accent: #78e398;
-  --accent-soft: rgba(120, 227, 152, 0.12);
+  color-scheme: light;
+  --bg: #ffffff;
+  --panel: #ffffff;
+  --panel-2: #f3fff7;
+  --text: #172017;
+  --muted: #5e6d61;
+  --line: #b9dfc8;
+  --line-soft: #e0f2e6;
+  --line-strong: #03983d;
+  --accent: #03983d;
+  --accent-dark: #026b2c;
+  --accent-soft: #e8fbef;
+  --code-bg: #ffffff;
 }
 
 * { box-sizing: border-box; }
@@ -46,138 +42,58 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  font-size: 15px;
-  line-height: 1.6;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+body::before {
+  content: "";
+  display: block;
+  height: 6px;
+  background: var(--accent);
 }
 
 main {
-  width: min(960px, calc(100% - 32px));
-  margin: 44px auto;
+  width: min(1180px, calc(100% - 28px));
+  margin: 18px auto 28px;
 }
 
-header { margin-bottom: 24px; }
+header {
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--line-strong);
+}
 
 h1 {
   margin: 0;
-  font-size: clamp(22px, 3.2vw, 32px);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.2;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: 0;
+  line-height: 1.15;
 }
 
 .subtitle {
-  margin-top: 10px;
+  margin-top: 6px;
   color: var(--muted);
-  max-width: 800px;
+  max-width: 1000px;
 }
 
 .path {
   display: inline-flex;
   align-items: center;
-  margin-top: 16px;
-  padding: 6px 10px;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: var(--panel);
-  color: var(--accent);
-  font-size: 13px;
-}
-
-.usage { margin: 20px 0 24px; }
-
-.usage-title {
-  margin: 0 0 8px 2px;
-  color: var(--muted);
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-}
-
-.code-block {
-  margin-bottom: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--panel);
-  overflow: hidden;
-}
-
-.code-block:last-child { margin-bottom: 0; }
-
-.code-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 8px 12px;
-  border-bottom: 1px solid var(--line);
-  background: var(--panel-2);
-}
-
-.code-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  color: var(--muted);
-  font-size: 13px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.code-lang {
-  flex: none;
+  margin-top: 8px;
   padding: 2px 7px;
-  border: 1px solid currentColor;
-  border-radius: 5px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
-.copy-btn {
-  flex: none;
-  font: inherit;
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  background: transparent;
   border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 3px 10px;
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
-
-.copy-btn:hover {
-  color: var(--accent);
-  border-color: var(--accent);
-}
-
-.copy-btn.copied {
-  color: var(--accent);
-  border-color: var(--accent);
-  background: var(--accent-soft);
-}
-
-.code-block pre {
-  margin: 0;
-  padding: 14px;
-  overflow-x: auto;
-}
-
-.code-block pre code.hljs {
-  background: transparent !important;
-  padding: 0 !important;
-  font-family: inherit;
-  font-size: 14px;
+  border-radius: 3px;
+  background: var(--panel-2);
+  color: var(--accent-dark);
+  font-size: 12px;
 }
 
 .table-wrap {
-  overflow: hidden;
+  overflow: auto;
   border: 1px solid var(--line);
-  border-radius: 10px;
+  border-radius: 4px;
   background: var(--panel);
 }
 
@@ -187,26 +103,35 @@ table {
 }
 
 td {
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--line);
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--line-soft);
   vertical-align: middle;
 }
 
 tr:last-child td { border-bottom: 0; }
-tr:hover { background: var(--accent-soft); }
+tr:hover { background: #f0f6ec; }
 
 .type {
-  width: 130px;
+  width: 120px;
   color: var(--muted);
   text-transform: uppercase;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  letter-spacing: 0.06em;
 }
 
 .name { word-break: break-all; }
 
+.name a {
+  color: var(--text);
+}
+
+.row-directory .name a {
+  color: var(--accent-dark);
+  font-weight: 700;
+}
+
 .size {
-  width: 160px;
+  width: 150px;
   color: var(--muted);
   text-align: right;
   white-space: nowrap;
@@ -217,19 +142,136 @@ a {
   text-decoration: none;
 }
 
-a:hover { text-decoration: underline; }
+a:hover {
+  color: var(--accent-dark);
+  text-decoration: underline;
+}
+
+.install {
+  margin: 14px 0 14px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.install-title {
+  padding: 7px 10px;
+  border-bottom: 1px solid var(--line-strong);
+  background: var(--accent);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.install-body {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
+  gap: 10px;
+  padding: 10px;
+}
+
+.code-block {
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 5px 8px;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel-2);
+}
+
+.code-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--muted);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.code-lang {
+  flex: none;
+  padding: 1px 6px;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.copy-btn {
+  flex: none;
+  font: inherit;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: 2px 8px;
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.copy-btn:hover {
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+  background: var(--accent-soft);
+}
+
+.copy-btn.copied {
+  color: var(--accent-dark);
+  border-color: var(--accent-dark);
+  background: var(--accent-soft);
+}
+
+.code-block pre {
+  margin: 0;
+  padding: 8px 10px;
+  overflow: auto;
+  max-height: 210px;
+  background: var(--code-bg);
+}
+
+.code-block code {
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  white-space: pre;
+}
 
 footer {
-  margin-top: 28px;
+  margin-top: 14px;
+  padding-top: 10px;
+  border-top: 1px solid var(--line);
   color: var(--muted);
-  font-size: 13px;
+  font-size: 12px;
 }
 
 @media (max-width: 640px) {
-  main { margin: 28px auto; }
-  td { padding: 10px; }
-  .type { width: 90px; }
+  main {
+    width: min(100% - 16px, 1180px);
+    margin-top: 12px;
+  }
+
+  h1 { font-size: 21px; }
+  td { padding: 6px 8px; }
+  .type { width: 82px; }
   .size { display: none; }
+  .code-title span:last-child { display: none; }
+  .install-body { display: block; }
+  .code-block { margin-bottom: 10px; }
+  .code-block:last-child { margin-bottom: 0; }
 }
 """
 
@@ -253,9 +295,6 @@ function copyCode(btn) {
   });
 }
 
-if (window.hljs) {
-  hljs.highlightAll();
-}
 """
 
 
@@ -285,9 +324,11 @@ def render_usage_section(usage_blocks: list[tuple[str, str, str]] | None) -> str
     )
 
     return f"""
-    <section class="usage" aria-label="Usage examples">
-      <div class="usage-title">usage</div>
-{blocks_html}    </section>
+    <section class="install" aria-label="Install examples">
+      <div class="install-title">Install</div>
+      <div class="install-body">
+{blocks_html}      </div>
+    </section>
 """
 
 
@@ -361,7 +402,9 @@ def render_page(
     description: str,
     path_text: str,
     canonical_url: str,
-    favicon_url: str,
+    favicon_svg_url: str,
+    favicon_ico_url: str,
+    theme_color: str,
     site_name: str,
     base_url: str,
     rows_html: str,
@@ -373,8 +416,6 @@ def render_page(
     author_github_url: str,
 ) -> str:
     usage_html = render_usage_section(usage_blocks)
-    needs_groovy = bool(usage_blocks) and any(lang == "groovy" for _, lang, _ in usage_blocks)
-    groovy_script = f'\n  <script src="{HLJS_JS_URL.rsplit("/", 1)[0]}/languages/groovy.min.js"></script>' if needs_groovy else ""
 
     author_meta = render_author_meta(author_name, author_twitter_handle)
     author_link_tags = render_author_link_tags(author_github_url, author_email)
@@ -393,11 +434,12 @@ def render_page(
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{escape(description)}">
   <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#78e398">
+  <meta name="theme-color" content="{escape(theme_color)}">
 
   <link rel="canonical" href="{escape(canonical_url)}">
-  <link rel="icon" href="{escape(favicon_url)}" type="image/x-icon">
-  <link rel="shortcut icon" href="{escape(favicon_url)}" type="image/x-icon">
+  <link rel="icon" href="{escape(favicon_svg_url)}" type="image/svg+xml">
+  <link rel="icon" href="{escape(favicon_ico_url)}" sizes="any">
+  <link rel="shortcut icon" href="{escape(favicon_ico_url)}" type="image/x-icon">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="{escape(title)}">
@@ -411,7 +453,6 @@ def render_page(
 {author_meta}
 {author_link_tags}
 
-  <link rel="stylesheet" href="{HLJS_CSS_URL}">
   <style>{PAGE_CSS}</style>
 {author_jsonld}
 </head>
@@ -437,7 +478,6 @@ def render_page(
     </footer>
   </main>
 
-  <script src="{HLJS_JS_URL}"></script>{groovy_script}
   <script>{COPY_SCRIPT}</script>
 </body>
 </html>

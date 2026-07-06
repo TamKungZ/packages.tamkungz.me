@@ -136,6 +136,10 @@ def file_kind(path: Path) -> str:
     return "file"
 
 
+def row_class(kind: str) -> str:
+    return "row-" + re.sub(r"[^a-z0-9]+", "-", kind.lower()).strip("-")
+
+
 def visible_children(root: Path, directory: Path) -> list[Path]:
     children: list[Path] = []
 
@@ -275,7 +279,7 @@ def make_index(root: Path, directory: Path, generated_pages: list[Path]) -> None
     if directory != root:
         rows.append(
             """
-            <tr>
+            <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
@@ -291,7 +295,7 @@ def make_index(root: Path, directory: Path, generated_pages: list[Path]) -> None
 
         rows.append(
             f"""
-            <tr>
+            <tr class="{escape(row_class(kind))}">
               <td class="type">{escape(kind)}</td>
               <td class="name"><a href="{escape(href)}">{escape(name)}</a></td>
               <td class="size">{escape(size)}</td>
@@ -304,7 +308,9 @@ def make_index(root: Path, directory: Path, generated_pages: list[Path]) -> None
         description=description,
         path_text=path_text,
         canonical_url=canonical_url(root, directory),
-        favicon_url=data.FAVICON_URL,
+        favicon_svg_url=data.FAVICON_SVG_URL,
+        favicon_ico_url=data.FAVICON_ICO_URL,
+        theme_color=data.THEME_COLOR,
         site_name=data.SITE_NAME,
         base_url=data.BASE_URL,
         rows_html="".join(rows),

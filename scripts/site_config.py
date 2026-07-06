@@ -12,7 +12,9 @@ from __future__ import annotations
 
 SITE_NAME = "TamKungZ_ Packages"
 BASE_URL = "https://packages.tamkungz.me"
-FAVICON_URL = "https://pub-df28fb9f69aa4326a1c6e10fb1f2abdc.r2.dev/assets-image/maven/tamkungz-repo-favicon-v2-nobg.ico"
+FAVICON_SVG_URL = "/favicon.svg"
+FAVICON_ICO_URL = "/favicon.ico"
+THEME_COLOR = "#03983d"
 
 # --- Author / SEO identity ---------------------------------------------
 
@@ -62,6 +64,8 @@ IGNORE_FILES = {
     "robots.txt",
     "sitemap.xml",
     "push.txt",
+    "favicon.svg",
+    "favicon.ico",
 }
 
 # --- Remote README sources -------------------------------------------

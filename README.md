@@ -1,7 +1,11 @@
 # TamKungZ Package Repository
 
-Static package repository for TamKungZ_ projects. Maven artifacts are served
-under `/maven/`:
+Static package repository for TamKungZ_ projects. This site is meant for
+package managers and developers, not as a product landing page. It serves Linux
+package repositories, release metadata, signatures, public keys, and Maven
+artifacts.
+
+Maven artifacts are served under `/maven/`:
 
 ```gradle
 repositories {
@@ -12,7 +16,24 @@ repositories {
 }
 ```
 
-## Recommended setup
+## Repository Layout
+
+```text
+apt/      Debian/Ubuntu APT repository
+rpm/      RPM repository grouped by base architecture
+apk/      Alpine APK repository
+xbps/     Void Linux XBPS repository
+arch/     Arch Linux pacman repository
+maven/    Maven-compatible JVM artifact repository
+apps/     Human-readable app pages
+gpg.key   Public GPG key for signed metadata and artifacts
+```
+
+The generated HTML pages are directory indexes for humans. Package managers use
+the native metadata files such as `Packages`, `repomd.xml`, `APKINDEX.tar.gz`,
+`x86_64-repodata`, pacman databases, and Maven metadata.
+
+## Recommended Setup
 
 1. Create a public GitHub repository, for example `TamKungZ/maven`.
 2. Upload this template to the repository root.
@@ -35,7 +56,7 @@ Value: TamKungZ.github.io
 
 8. After DNS verifies, enable **Enforce HTTPS** in GitHub Pages.
 
-## Files that matter
+## Files That Matter
 
 ```text
 CNAME          custom domain for GitHub Pages
@@ -46,7 +67,7 @@ apt/ rpm/ apk/ Linux package repositories
 maven/         Maven repository root
 ```
 
-## Maven artifact structure
+## Maven Artifact Structure
 
 For:
 
@@ -74,7 +95,7 @@ maven/
 This template includes only a sample `.pom` and metadata file.
 Do not publish the sample as a real dependency unless you also add a real JAR.
 
-## Publishing from a project
+## Publishing From A Project
 
 In the actual Java/Gradle project, publish to a local folder first:
 
@@ -104,7 +125,7 @@ build/maven-repo/
 into `maven/`, commit, and push. The Gradle/Maven output already contains the
 group path, for example `me/tamkungz/...` or `org/ex/...`.
 
-## Generate index pages
+## Generate Index Pages
 
 The main entrypoint is:
 
@@ -114,6 +135,21 @@ python3 scripts/build_site.py
 
 It generates Linux package indexes, Maven indexes, `robots.txt`, and
 `sitemap.xml`.
+
+## License And Artifact Use
+
+This repository is all rights reserved. It is provided as a public package
+repository so compatible tools can download artifacts for building, testing, or
+running projects that depend on them.
+
+Do not redistribute, mirror, rehost, modify and redistribute, sell, sublicense,
+or claim ownership of artifacts from this repository. Do not use this repository
+as the source for unofficial package mirrors.
+
+Individual artifacts may include their own license terms in their POM,
+documentation, or distribution page. If an artifact provides separate terms,
+those terms apply to that artifact. If no separate license is provided, all
+rights are reserved.
 
 ## Notes
 

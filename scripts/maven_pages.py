@@ -2,6 +2,7 @@ from pathlib import Path
 from html import escape
 from datetime import datetime, timezone
 import os
+import re
 
 import html_renderer as render
 import site_config as data
@@ -20,7 +21,6 @@ MAVEN_ROOT = ROOT / "maven"
 
 SITE_NAME = "TamKungZ_ Stable Maven Repository"
 BASE_URL = data.BASE_URL
-FAVICON_URL = data.FAVICON_URL
 
 IGNORE_DIRS = {
     ".git",
@@ -143,6 +143,10 @@ def file_kind(path: Path) -> str:
     return "file"
 
 
+def row_class(kind: str) -> str:
+    return "row-" + re.sub(r"[^a-z0-9]+", "-", kind.lower()).strip("-")
+
+
 def visible_children(directory: Path):
     children = []
 
@@ -176,7 +180,7 @@ def make_index(directory: Path):
     if directory != MAVEN_ROOT:
         rows.append(
             """
-            <tr>
+            <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
@@ -192,7 +196,7 @@ def make_index(directory: Path):
 
         rows.append(
             f"""
-            <tr>
+            <tr class="{escape(row_class(kind))}">
               <td class="type">{escape(kind)}</td>
               <td class="name"><a href="{escape(href)}">{escape(name)}</a></td>
               <td class="size">{escape(size)}</td>
@@ -218,7 +222,9 @@ def make_index(directory: Path):
         description=description,
         path_text=path_text,
         canonical_url=canonical_url(directory),
-        favicon_url=FAVICON_URL,
+        favicon_svg_url=data.FAVICON_SVG_URL,
+        favicon_ico_url=data.FAVICON_ICO_URL,
+        theme_color=data.THEME_COLOR,
         site_name=SITE_NAME,
         base_url=BASE_URL,
         rows_html="".join(rows),
