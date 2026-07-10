@@ -476,6 +476,7 @@ def render_page(
 {author_meta}
 {author_link_tags}
 
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="vTi0PrM7Qf4AAjrUB/x8WA" async></script>
   <style>{page_css}</style>
 {author_jsonld}
 </head>
