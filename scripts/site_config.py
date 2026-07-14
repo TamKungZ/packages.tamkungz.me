@@ -12,8 +12,8 @@ from __future__ import annotations
 
 SITE_NAME = "TamKungZ_ Packages"
 BASE_URL = "https://packages.tamkungz.me"
-FAVICON_SVG_URL = "/favicon.svg"
-FAVICON_ICO_URL = "/favicon.ico"
+FAVICON_SVG_URL = "/favicon-20260714.svg"
+FAVICON_ICO_URL = "/favicon-20260714.ico"
 THEME_COLOR = "#03983d"
 
 # --- Author / SEO identity ---------------------------------------------
@@ -66,6 +66,8 @@ IGNORE_FILES = {
     "push.txt",
     "favicon.svg",
     "favicon.ico",
+    "favicon-20260714.svg",
+    "favicon-20260714.ico",
 }
 
 # --- Remote README sources -------------------------------------------
