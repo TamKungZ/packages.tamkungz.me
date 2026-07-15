@@ -36,6 +36,55 @@ def canonical_url(root: Path, directory: Path) -> str:
     return data.BASE_URL + path
 
 
+PACKAGE_ROOT_ORDER = {
+    "apt": 0,
+    "arch": 1,
+    "maven": 2,
+    "rpm": 3,
+    "apk": 4,
+    "xbps": 5,
+}
+
+
+def path_parts(root: Path, directory: Path) -> tuple[str, ...]:
+    if directory == root:
+        return ()
+    return directory.relative_to(root).parts
+
+
+def sitemap_priority(root: Path, directory: Path) -> float:
+    parts = path_parts(root, directory)
+
+    if not parts:
+        return 1.0
+    if len(parts) == 2 and parts[0] == "apps":
+        return 0.95
+    if parts == ("apps",):
+        return 0.9
+    if len(parts) == 1 and parts[0] in PACKAGE_ROOT_ORDER:
+        return 0.75
+    if parts and parts[0] in PACKAGE_ROOT_ORDER:
+        return 0.45
+
+    return 0.3
+
+
+def sitemap_sort_key(root: Path, directory: Path) -> tuple[int, int, str]:
+    parts = path_parts(root, directory)
+    path = display_path(root, directory)
+
+    if not parts:
+        return (0, 0, path)
+    if len(parts) == 2 and parts[0] == "apps":
+        return (1, 0, path)
+    if parts == ("apps",):
+        return (2, 0, path)
+    if parts and parts[0] in PACKAGE_ROOT_ORDER:
+        return (3, PACKAGE_ROOT_ORDER[parts[0]], path)
+
+    return (4, 0, path)
+
+
 def write_robots(root: Path) -> None:
     content = f"""User-agent: *
 Allow: /
@@ -49,11 +98,12 @@ def write_sitemap(root: Path, generated_pages: list[Path]) -> None:
     now = datetime.now(timezone.utc).date().isoformat()
 
     urls = []
-    for directory in sorted(generated_pages, key=lambda p: display_path(root, p)):
+    for directory in sorted(generated_pages, key=lambda p: sitemap_sort_key(root, p)):
         urls.append(
             f"""  <url>
     <loc>{escape(canonical_url(root, directory))}</loc>
     <lastmod>{now}</lastmod>
+    <priority>{sitemap_priority(root, directory):.2f}</priority>
   </url>"""
         )
 
