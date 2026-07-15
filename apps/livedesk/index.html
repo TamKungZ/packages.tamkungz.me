@@ -1,371 +1,361 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>TamKungZ_ Packages - /apps/livedesk/</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell extension, a native GStreamer daemon, and a GTK/Libadwaita configuration app.">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#03983d">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Livedesk — Live Wallpaper for GNOME</title>
+<style>
+  :root{
+    --bg: #ffffff;
+    --bg-alt: #f6f6f4;
+    --text: #161616;
+    --muted: #5a5a5a;
+    --border: #d6d6d2;
+    --link: #1a5fb4;
+    --note: #9a6a00;
+    --code-bg: #f4f4f2;
+    --mono: ui-monospace, "Cascadia Mono", "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    --sans: Verdana, Geneva, "DejaVu Sans", Arial, sans-serif;
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--sans);
+    font-size:15.5px;
+    line-height:1.65;
+  }
+  a{ color:var(--link); text-decoration:underline; }
+  a:hover{ color:#003c78; }
+  ::selection{ background:#cfe0f3; }
+  code{ font-family:var(--mono); background:var(--code-bg); border:1px solid var(--border); padding:1px 5px; font-size:0.88em; color:var(--text); }
 
-  <link rel="canonical" href="https://packages.tamkungz.me/apps/livedesk/">
-  <link rel="icon" href="/favicon-20260714.svg" type="image/svg+xml">
-  <link rel="icon" href="/favicon-20260714.ico" sizes="any">
-  <link rel="shortcut icon" href="/favicon-20260714.ico" type="image/x-icon">
+  .wrap{ max-width:760px; margin:0 auto; padding:0 22px; }
 
-  <meta property="og:type" content="website">
-  <meta property="og:title" content="TamKungZ_ Packages - /apps/livedesk/">
-  <meta property="og:description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell extension, a native GStreamer daemon, and a GTK/Libadwaita configuration app.">
-  <meta property="og:url" content="https://packages.tamkungz.me/apps/livedesk/">
-  <meta property="og:site_name" content="TamKungZ_ Packages">
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:var(--bg);
+    border-bottom:1px solid var(--border);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:54px; flex-wrap:wrap; }
+  .brand{ font-family:var(--mono); font-weight:700; font-size:0.95rem; color:var(--text); text-decoration:none; }
+  .brand:hover{ color:var(--text); }
+  .cursor{ display:inline-block; color:var(--link); animation:blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .navlinks{ display:flex; gap:16px; font-family:var(--mono); font-size:0.82rem; }
+  .navlinks a{ color:var(--muted); text-decoration:none; }
+  .navlinks a:hover{ color:var(--link); text-decoration:underline; }
 
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="TamKungZ_ Packages - /apps/livedesk/">
-  <meta name="twitter:description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell extension, a native GStreamer daemon, and a GTK/Libadwaita configuration app.">
+  /* HERO */
+  header.hero{ padding:44px 0 36px; }
+  .tags{ display:flex; flex-wrap:wrap; gap:6px; margin-bottom:18px; }
+  .tag{ font-family:var(--mono); font-size:0.7rem; color:var(--muted); border:1px solid var(--border); padding:2px 8px; }
+  h1{ font-family:var(--mono); font-size:2rem; font-weight:700; letter-spacing:-0.01em; }
+  .tagline{ font-family:var(--mono); font-size:0.95rem; color:var(--muted); margin-top:6px; }
+  .lead{ margin-top:18px; max-width:620px; color:var(--text); }
+  .jumpto{ margin-top:16px; font-family:var(--mono); font-size:0.78rem; color:var(--muted); }
+  .jumpto a{ color:var(--muted); }
+  .jumpto a:hover{ color:var(--link); }
 
-  <meta name="author" content="TamKungZ_">
-  <meta name="twitter:site" content="@TamKungZ_">
-  <meta name="twitter:creator" content="@TamKungZ_">
+  .cta-row{ display:flex; gap:10px; margin-top:26px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:0.85rem;
+    padding:9px 16px; border:1px solid var(--text); color:var(--text);
+    background:var(--bg); text-decoration:none; display:inline-flex; align-items:center; gap:6px;
+  }
+  .btn:hover{ background:var(--text); color:var(--bg); }
+  .btn-primary{ background:var(--text); color:var(--bg); }
+  .btn-primary:hover{ background:var(--bg); color:var(--text); }
 
-  <link rel="me" href="https://github.com/TamKungZ">
-  <link rel="author" href="mailto:dev@tamkungz.me">
+  section{ padding:40px 0; border-top:1px solid var(--border); }
+  h2{ font-family:var(--mono); font-size:1.25rem; font-weight:700; margin-bottom:14px; }
+  .mark{ color:var(--link); opacity:0.75; font-weight:400; margin-right:6px; }
+  section > .wrap > p{ margin-bottom:14px; max-width:620px; }
+  p.muted{ color:var(--muted); font-size:0.92rem; }
 
-  <script src="https://analytics.ahrefs.com/analytics.js" data-key="vTi0PrM7Qf4AAjrUB/x8WA" async></script>
-  <style>
-:root {
-  color-scheme: light;
-  --bg: #ffffff;
-  --panel: #ffffff;
-  --panel-2: #f3fff7;
-  --text: #172017;
-  --muted: #5e6d61;
-  --line: #b9dfc8;
-  --line-soft: #e0f2e6;
-  --line-strong: #03983d;
-  --accent: #03983d;
-  --accent-dark: #026b2c;
-  --accent-soft: #e8fbef;
-  --code-bg: #ffffff;
-}
+  /* LISTS */
+  .doc-list{ list-style:none; margin:16px 0; }
+  .doc-list li{ position:relative; padding-left:18px; margin-bottom:9px; max-width:620px; }
+  .doc-list li::before{ content:"-"; position:absolute; left:0; color:var(--link); }
+  .two-col{ columns:2; column-gap:28px; }
+  .two-col li{ break-inside:avoid; }
+  .compact li{ margin-bottom:6px; font-size:0.92rem; }
 
-* { box-sizing: border-box; }
+  /* CODE FENCES */
+  pre.fence{
+    background:var(--code-bg); border:1px solid var(--border);
+    padding:14px 16px; overflow-x:auto; margin:16px 0;
+    font-family:var(--mono); font-size:0.8rem; line-height:1.6; color:#1c1c1c;
+  }
+  pre.fence .c{ color:#8a8a8a; }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  border-top: 6px solid var(--accent);
-  background: var(--bg);
-  color: var(--text);
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
-  font-size: 14px;
-  line-height: 1.45;
-  isolation: isolate;
-}
+  /* NOTE / BLOCKQUOTE */
+  blockquote.note{
+    border-left:3px solid var(--note); background:var(--bg-alt);
+    padding:10px 16px; margin:18px 0; font-size:0.9rem; color:var(--muted); max-width:620px;
+  }
+  blockquote.note b{ color:var(--text); }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 6px 0 0 0;
-  z-index: 0;
-  background: url("../../resources/svg/volonoi.svg") top center / cover no-repeat;
-  opacity: 0.14;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 28%, rgba(0, 0, 0, 0.72) 68%, #000 100%);
-  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 28%, rgba(0, 0, 0, 0.72) 68%, #000 100%);
-}
+  /* TABS */
+  .tabs{ display:flex; margin-top:18px; margin-bottom:-1px; }
+  .tab{
+    font-family:var(--mono); font-size:0.8rem; padding:8px 14px;
+    border:1px solid var(--border); border-bottom:none; background:var(--bg);
+    color:var(--muted); cursor:pointer; margin-right:-1px;
+  }
+  .tab.active{ color:var(--text); background:var(--bg-alt); border-color:var(--text); position:relative; z-index:1; }
+  .pane{ display:none; border:1px solid var(--border); padding:0 16px 16px; }
+  .pane.active{ display:block; }
+  .pane pre.fence{ border:none; margin:0; padding:16px 0; background:transparent; }
+  .pane p{ margin-top:0; }
 
-main {
-  position: relative;
-  z-index: 1;
-  width: min(1180px, calc(100% - 28px));
-  margin: 18px auto 28px;
-}
+  /* TABLE */
+  table.path-table{ border-collapse:collapse; margin:16px 0; font-size:0.9rem; }
+  table.path-table td{ padding:6px 14px 6px 0; border-bottom:1px solid var(--border); vertical-align:top; }
+  table.path-table td:first-child{ color:var(--muted); white-space:nowrap; }
 
-header {
-  margin-bottom: 14px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--line-strong);
-}
-
-h1 {
-  margin: 0;
-  font-size: 24px;
-  font-weight: 700;
-  letter-spacing: 0;
-  line-height: 1.15;
-}
-
-.subtitle {
-  margin-top: 6px;
-  color: var(--muted);
-  max-width: 1000px;
-}
-
-.path {
-  display: inline-flex;
-  align-items: center;
-  margin-top: 8px;
-  padding: 2px 7px;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: var(--panel-2);
-  color: var(--accent-dark);
-  font-size: 12px;
-}
-
-.table-wrap {
-  overflow: auto;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--panel);
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-td {
-  padding: 6px 10px;
-  border-bottom: 1px solid var(--line-soft);
-  vertical-align: middle;
-}
-
-tr:last-child td { border-bottom: 0; }
-tr:hover { background: #f0f6ec; }
-
-.type {
-  width: 120px;
-  color: var(--muted);
-  text-transform: uppercase;
-  font-size: 11px;
-  letter-spacing: 0.06em;
-}
-
-.name { word-break: break-all; }
-
-.name a {
-  color: var(--text);
-}
-
-.row-directory .name a {
-  color: var(--accent-dark);
-  font-weight: 700;
-}
-
-.size {
-  width: 150px;
-  color: var(--muted);
-  text-align: right;
-  white-space: nowrap;
-}
-
-a {
-  color: var(--accent);
-  text-decoration: none;
-}
-
-a:hover {
-  color: var(--accent-dark);
-  text-decoration: underline;
-}
-
-.install {
-  margin: 14px 0 14px;
-  border: 1px solid var(--line);
-  border-radius: 4px;
-  background: var(--panel);
-}
-
-.install-title {
-  padding: 7px 10px;
-  border-bottom: 1px solid var(--line-strong);
-  background: var(--accent);
-  color: #ffffff;
-  font-weight: 700;
-}
-
-.install-body {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(420px, 100%), 1fr));
-  gap: 10px;
-  padding: 10px;
-}
-
-.code-block {
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  background: var(--panel);
-  overflow: hidden;
-}
-
-.code-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 5px 8px;
-  border-bottom: 1px solid var(--line);
-  background: var(--panel-2);
-}
-
-.code-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
-  color: var(--muted);
-  font-size: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.code-lang {
-  flex: none;
-  padding: 1px 6px;
-  border: 1px solid currentColor;
-  border-radius: 3px;
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.copy-btn {
-  flex: none;
-  font: inherit;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--muted);
-  background: transparent;
-  border: 1px solid var(--line);
-  border-radius: 3px;
-  padding: 2px 8px;
-  cursor: pointer;
-  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
-}
-
-.copy-btn:hover {
-  color: var(--accent-dark);
-  border-color: var(--accent-dark);
-  background: var(--accent-soft);
-}
-
-.copy-btn.copied {
-  color: var(--accent-dark);
-  border-color: var(--accent-dark);
-  background: var(--accent-soft);
-}
-
-.code-block pre {
-  margin: 0;
-  padding: 8px 10px;
-  overflow: auto;
-  max-height: 210px;
-  background: var(--code-bg);
-}
-
-.code-block code {
-  color: var(--text);
-  font-family: inherit;
-  font-size: 13px;
-  white-space: pre;
-}
-
-footer {
-  margin-top: 14px;
-  padding: 10px 12px;
-  border-top: 1px solid var(--line);
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.0);
-  color: var(--muted);
-  font-size: 12px;
-}
-
-@media (max-width: 640px) {
-  main {
-    width: min(100% - 16px, 1180px);
-    margin-top: 12px;
+  /* FOOTER */
+  footer{ border-top:1px solid var(--border); padding:36px 0 30px; }
+  .footer-grid{ display:grid; grid-template-columns:1.3fr 1fr 1.2fr; gap:28px; }
+  .footer-grid .brand{ font-size:0.95rem; }
+  .footer-grid p{ margin-top:10px; font-size:0.88rem; }
+  .footer-grid h5{ font-family:var(--mono); font-size:0.75rem; color:var(--muted); margin-bottom:10px; text-transform:lowercase; }
+  .footer-grid ul{ list-style:none; }
+  .footer-grid ul li{ margin-bottom:7px; font-size:0.88rem; }
+  .footer-bottom{
+    margin-top:30px; padding-top:16px; border-top:1px solid var(--border);
+    display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+    font-family:var(--mono); font-size:0.76rem; color:var(--muted);
   }
 
-  h1 { font-size: 21px; }
-  td { padding: 6px 8px; }
-  .type { width: 82px; }
-  .size { display: none; }
-  .code-title span:last-child { display: none; }
-  .install-body { display: block; }
-  .code-block { margin-bottom: 10px; }
-  .code-block:last-child { margin-bottom: 0; }
-}
+  @media (max-width:640px){
+    .two-col{ columns:1; }
+    .footer-grid{ grid-template-columns:1fr; }
+    h1{ font-size:1.6rem; }
+  }
+  @media (prefers-reduced-motion: reduce){
+    .cursor{ animation:none; }
+  }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--link); outline-offset:2px; }
 </style>
-
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "TamKungZ_ Packages",
-  "url": "https://packages.tamkungz.me",
-  "creator": {
-    "@type": "Person",
-    "name": "TamKungZ_",
-    "email": "mailto:dev@tamkungz.me",
-    "sameAs": [
-      "https://x.com/TamKungZ_",
-      "https://github.com/TamKungZ"
-    ]
-  }
-}
-  </script>
 </head>
 <body>
-  <main>
-    <header>
-      <h1>TamKungZ_ Packages - /apps/livedesk/</h1>
-      <div class="subtitle">Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell extension, a native GStreamer daemon, and a GTK/Libadwaita configuration app.</div>
-      <div class="path">/apps/livedesk/</div>
-    </header>
 
-    <section class="table-wrap" aria-label="Directory listing">
-      <table>
-        <tbody>
-          
-            <tr class="row-directory">
-              <td class="type">dir</td>
-              <td class="name"><a href="../">../</a></td>
-              <td class="size"></td>
-            </tr>
-            
-        </tbody>
-      </table>
-    </section>
+<nav>
+  <div class="wrap">
+    <a href="#top" class="brand"># livedesk<span class="cursor">▌</span></a>
+    <div class="navlinks">
+      <a href="#features">features</a>
+      <a href="#architecture">architecture</a>
+      <a href="#install">install</a>
+      <a href="#usage">usage</a>
+      <a href="https://github.com/TamKungZ/livedesk-live-wallpaper-for-gnome">source ↗</a>
+    </div>
+  </div>
+</nav>
 
-    <footer>
-      Generated at 2026-07-15T06:02:16.688756+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
-    </footer>
-  </main>
+<header id="top" class="hero">
+  <div class="wrap">
+    <div class="tags">
+      <span class="tag">GNOME Shell 40–51</span>
+      <span class="tag">GTK4 / Libadwaita</span>
+      <span class="tag">Rust 1.77</span>
+      <span class="tag">GPL-3.0-or-later</span>
+    </div>
+    <h1>livedesk</h1>
+    <p class="tagline">Live wallpaper for GNOME</p>
+    <p class="lead">Livedesk turns a video file into a GNOME desktop background. A GNOME Shell extension places the wallpaper actor inside the compositor, a small Rust + GStreamer daemon decodes the video, and a GTK4/Libadwaita app handles configuration. Unlike a hidden fullscreen player pretending to be a wallpaper, it draws inside GNOME Shell's own background group — behind normal windows, not underneath them.</p>
+    <p class="jumpto">in this doc: <a href="#features">features</a> · <a href="#architecture">architecture</a> · <a href="#install">install</a> · <a href="#requirements">requirements</a> · <a href="#usage">usage</a> · <a href="#development">development</a></p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#install">install livedesk →</a>
+      <a class="btn" href="https://github.com/TamKungZ/livedesk-live-wallpaper-for-gnome">source on github</a>
+      <a class="btn" href="https://github.com/TamKungZ/livedesk-live-wallpaper-for-gnome/releases/latest">latest release</a>
+    </div>
+  </div>
+</header>
 
-  <script>
-function copyCode(btn) {
-  const block = btn.closest('.code-block');
-  const codeEl = block ? block.querySelector('code') : null;
-  if (!codeEl) return;
+<section id="features">
+  <div class="wrap">
+    <h2><span class="mark">##</span>features</h2>
+    <ul class="doc-list two-col">
+      <li>Renders as a real GNOME Shell background actor — normal windows sit on top of it like any wallpaper.</li>
+      <li><code>livedesk</code> is a GTK4/Libadwaita app for picking videos, monitors, and playback state.</li>
+      <li>Frames move through a memory-mapped file guarded by a seqlock header — D-Bus only carries coarse commands.</li>
+      <li>D-Bus controls for play, pause, mute, source switching, and frame-path lookup.</li>
+      <li>Two extension builds — ES module and legacy <code>imports.*</code> — cover GNOME Shell 40 through 51.</li>
+      <li>Scripted Debian and RPM packages, plus a Launchpad PPA pipeline.</li>
+    </ul>
+  </div>
+</section>
 
-  navigator.clipboard.writeText(codeEl.textContent).then(() => {
-    const original = btn.textContent;
-    btn.textContent = 'copied';
-    btn.classList.add('copied');
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.classList.remove('copied');
-    }, 1400);
-  }).catch(() => {
-    btn.textContent = 'failed';
-    setTimeout(() => { btn.textContent = 'copy'; }, 1400);
+<section id="architecture">
+  <div class="wrap">
+    <h2><span class="mark">##</span>architecture</h2>
+    <pre class="fence"><code>video file
+  -&gt; livedesk-daemon
+  -&gt; /run/user/&lt;uid&gt;/livedesk/&lt;monitor&gt;.frame
+  -&gt; GNOME Shell extension
+  -&gt; Clutter actor in Main.layoutManager._backgroundGroup
+  -&gt; Mutter compositor</code></pre>
+    <p>No pixel data crosses D-Bus. The daemon writes RGBA frames to a memory-mapped file; the Shell extension polls it using a small seqlock header to avoid torn reads. D-Bus carries only coarse control: play, pause, mute, source changes, frame-path lookup.</p>
+    <blockquote class="note">
+      <p><b>worth knowing —</b> background-actor placement and fullscreen/lock-screen detection rely on GNOME Shell internals rather than a stable extension API, so a Shell update can occasionally need a fix. The current uploader also goes through CPU memory rather than a zero-copy GPU path — fine today, a candidate for a future DMABUF/GL route at very high resolutions or frame rates.</p>
+    </blockquote>
+  </div>
+</section>
+
+<section id="install">
+  <div class="wrap">
+    <h2><span class="mark">##</span>install</h2>
+    <p>Package installs place the extension automatically for the detected Shell version. Building from source works everywhere else.</p>
+
+    <div class="tabs" role="tablist">
+      <button class="tab active" data-pane="deb">debian / ubuntu</button>
+      <button class="tab" data-pane="fedora">fedora / rhel-like</button>
+      <button class="tab" data-pane="source">from source</button>
+    </div>
+
+    <div class="pane active" id="deb">
+      <pre class="fence"><code><span class="c"># via PPA</span>
+sudo add-apt-repository ppa:tamkungz/stable
+sudo apt update
+sudo apt install livedesk
+livedesk
+
+<span class="c"># or add the APT repo manually</span>
+curl -fsSL https://packages.tamkungz.me/gpg.key \
+  | sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-archive-keyring.gpg
+echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-archive-keyring.gpg] https://packages.tamkungz.me/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/tamkungz.list
+sudo apt update
+sudo apt install livedesk
+livedesk</code></pre>
+    </div>
+
+    <div class="pane" id="fedora">
+      <pre class="fence"><code>sudo rpm --import https://packages.tamkungz.me/gpg.key
+sudo tee /etc/yum.repos.d/tamkungz.repo &gt;/dev/null &lt;&lt;'EOF'
+[tamkungz]
+name=TamKungZ Packages
+baseurl=https://packages.tamkungz.me/rpm/x86_64
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.tamkungz.me/gpg.key
+EOF
+sudo dnf install livedesk
+livedesk</code></pre>
+    </div>
+
+    <div class="pane" id="source">
+      <pre class="fence"><code>./install.sh
+livedesk</code></pre>
+      <p class="muted">On Wayland, log out and back in after a fresh extension install. On X11, restart GNOME Shell with <code>Alt+F2</code>, then <code>r</code>, then Enter. The installer picks the ES-module extension for GNOME 45–51 or the legacy <code>imports.*</code> build for GNOME 40–44 automatically.</p>
+    </div>
+  </div>
+</section>
+
+<section id="requirements">
+  <div class="wrap">
+    <h2><span class="mark">##</span>requirements</h2>
+    <p>To build from source. The <code>*-dev</code> packages compile the Rust daemon; the <code>gstreamer1.0-*</code> plugins provide runtime decoders.</p>
+    <pre class="fence"><code>sudo apt install cargo rustc pkg-config gjs gir1.2-gtk-4.0 gir1.2-adw-1 \
+  libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libdbus-1-dev \
+  libunwind-dev \
+  gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-libav \
+  totem</code></pre>
+    <ul class="doc-list">
+      <li><code>totem</code> supplies <code>totem-video-thumbnailer</code>, used for gallery thumbnails when present.</li>
+      <li>Plugin packages cover H.264, VP8, VP9, and AV1 decoding at runtime.</li>
+      <li>Missing <code>gstreamer-1.0.pc</code> or similar <code>.pc</code> files usually mean the runtime is installed but headers aren't.</li>
+    </ul>
+    <blockquote class="note">
+      <p><b>fix for missing headers —</b> <code>sudo apt install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libunwind-dev</code></p>
+    </blockquote>
+  </div>
+</section>
+
+<section id="usage">
+  <div class="wrap">
+    <h2><span class="mark">##</span>usage</h2>
+    <p>Open anytime with <code>livedesk</code>. The hamburger menu in the top-right holds daemon controls and preferences.</p>
+    <ul class="doc-list">
+      <li><b>Library gallery</b> — browse the video library as thumbnails and apply a pick immediately.</li>
+      <li><b>Import &amp; organize</b> — open the library folder directly, or import files into it.</li>
+      <li><b>Per-monitor targeting</b> — detects connected monitors and matches their resolution automatically.</li>
+      <li><b>Playback controls</b> — mute, unmute, start the daemon, send play / pause / stop / apply over D-Bus.</li>
+    </ul>
+    <table class="path-table">
+      <tr><td>video library</td><td><code>~/Videos/Livedesk</code></td></tr>
+      <tr><td>thumbnail cache</td><td><code>~/.cache/livedesk/thumbnails</code></td></tr>
+      <tr><td>config file</td><td><code>~/.config/livedesk/config.json</code></td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="development">
+  <div class="wrap">
+    <h2><span class="mark">##</span>development</h2>
+    <pre class="fence"><code>livedesk/
+├── app/                     GTK4/Libadwaita settings app
+├── daemon/                  Rust + GStreamer decode daemon
+├── shell-extension/         GNOME 45-51 extension
+├── shell-extension-legacy/  GNOME 40-44 extension
+├── scripts/                 package + extension zip builders
+└── install.sh</code></pre>
+    <p class="muted">manual daemon build</p>
+    <pre class="fence"><code>cd daemon
+cargo +1.77 build --release --locked</code></pre>
+    <ul class="doc-list two-col compact">
+      <li>D-Bus name: <code>me.tamkungz.Livedesk</code></li>
+      <li>GTK app ID: <code>me.tamkungz.LivedeskApp</code></li>
+      <li>Extension UUID: <code>livedesk@me.tamkungz</code></li>
+      <li>Rust: 1.77, edition 2021</li>
+      <li>Config dir: <code>~/.config/livedesk</code></li>
+      <li>Runtime frame dir: <code>$XDG_RUNTIME_DIR/livedesk</code></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <div class="brand"># livedesk</div>
+        <p class="muted">A video-file wallpaper for GNOME, rendered behind your windows instead of hidden underneath a fullscreen player.</p>
+      </div>
+      <div>
+        <h5>project</h5>
+        <ul>
+          <li><a href="https://github.com/TamKungZ/livedesk-live-wallpaper-for-gnome">source on github</a></li>
+          <li><a href="https://github.com/TamKungZ/livedesk-live-wallpaper-for-gnome/releases/latest">latest release</a></li>
+          <li><a href="https://extensions.gnome.org/upload/">gnome extension upload</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>contributing</h5>
+        <p class="muted" style="margin-top:0;">Issues and PRs welcome — GNOME version compatibility, packaging, hardware decode options, per-monitor settings, lower-copy rendering.</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>GPL-3.0-or-later.</span>
+      <span>Unofficial page, built from the project README.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById(tab.dataset.pane).classList.add('active');
+    });
   });
-}
-
 </script>
+
 </body>
 </html>
