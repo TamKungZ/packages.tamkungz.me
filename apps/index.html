@@ -30,6 +30,7 @@
   <link rel="me" href="https://github.com/TamKungZ">
   <link rel="author" href="mailto:dev@tamkungz.me">
 
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="vTi0PrM7Qf4AAjrUB/x8WA" async></script>
   <style>
 :root {
   color-scheme: light;
@@ -51,21 +52,31 @@
 
 body {
   margin: 0;
+  min-height: 100vh;
+  border-top: 6px solid var(--accent);
   background: var(--bg);
   color: var(--text);
   font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
   font-size: 14px;
   line-height: 1.45;
+  isolation: isolate;
 }
 
 body::before {
   content: "";
-  display: block;
-  height: 6px;
-  background: var(--accent);
+  position: fixed;
+  inset: 6px 0 0 0;
+  z-index: 0;
+  background: url("../resources/svg/volonoi.svg") top center / cover no-repeat;
+  opacity: 0.14;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 28%, rgba(0, 0, 0, 0.72) 68%, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.18) 28%, rgba(0, 0, 0, 0.72) 68%, #000 100%);
 }
 
 main {
+  position: relative;
+  z-index: 1;
   width: min(1180px, calc(100% - 28px));
   margin: 18px auto 28px;
 }
@@ -264,8 +275,10 @@ a:hover {
 
 footer {
   margin-top: 14px;
-  padding-top: 10px;
+  padding: 10px 12px;
   border-top: 1px solid var(--line);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.0);
   color: var(--muted);
   font-size: 12px;
 }
@@ -325,6 +338,12 @@ footer {
             
             <tr class="row-directory">
               <td class="type">directory</td>
+              <td class="name"><a href="livedesk/">livedesk/</a></td>
+              <td class="size"></td>
+            </tr>
+            
+            <tr class="row-directory">
+              <td class="type">directory</td>
               <td class="name"><a href="tarminal/">tarminal/</a></td>
               <td class="size"></td>
             </tr>
@@ -334,7 +353,7 @@ footer {
     </section>
 
     <footer>
-      Generated at 2026-07-08T06:54:12.035658+00:00<br>
+      Generated at 2026-07-15T17:33:53.220931+00:00<br>
       Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
     </footer>
   </main>
