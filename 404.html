@@ -19,20 +19,6 @@
 
   <title>404 - TamKungZ_ Packages</title>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      const path = window.location.pathname;
-      const isFileRequest = /\.[a-zA-Z0-9]+$/.test(path);
-
-      const pathEl = document.getElementById("requested-path");
-      if (pathEl) pathEl.textContent = path;
-
-      if (isFileRequest) {
-        document.documentElement.innerHTML = "Not found";
-      }
-    });
-  </script>
-
   <style>
     :root {
       --bg-color: #ffffff;
@@ -63,6 +49,20 @@
       width: 100%;
       padding: 40px 24px;
     }
+    .error-icon {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 8px;
+      background-color: var(--accent);
+      -webkit-mask-image: url('https://static.tamkungz.me/assets-image/404/error-404.svg');
+      mask-image: url('https://static.tamkungz.me/assets-image/404/error-404.svg');
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      -webkit-mask-position: center;
+      mask-position: center;
+      -webkit-mask-size: contain;
+      mask-size: contain;
+    }
     h1 {
       font-size: 5.5rem;
       margin: 0 0 12px 0;
@@ -85,19 +85,8 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 0.9rem;
       color: var(--text-main);
-      margin-bottom: 12px;
+      margin-bottom: 32px;
       word-break: break-all;
-    }
-    .requested-path {
-      font-size: 0.85rem;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-    }
-    .requested-path code {
-      background: var(--code-bg);
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 2px 6px;
     }
     code {
       font-family: inherit;
@@ -134,15 +123,12 @@
 </head>
 <body>
 <main>
+  <div class="error-icon" aria-hidden="true"></div>
   <h1>404</h1>
   <p>The requested package or artifact was not found.</p>
 
   <div class="code-block">
     Repository root: <a href="https://packages.tamkungz.me/"><code>https://packages.tamkungz.me/</code></a>
-  </div>
-
-  <div class="requested-path">
-    Requested path: <code id="requested-path"></code>
   </div>
 
   <div>
