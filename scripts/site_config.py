@@ -34,9 +34,6 @@ AUTHOR_GITHUB_URL = "https://github.com/TamKungZ"
 # /arch/<arch>      Arch Linux pacman repository
 # /maven            Maven repository
 # /apps/<app>       human-readable product pages only
-# /terms            site terms of use
-# /privacy          privacy policy
-# /license          repository and artifact license terms
 PROJECT_ROOTS = {
     "apt",
     "rpm",
@@ -45,9 +42,6 @@ PROJECT_ROOTS = {
     "arch",
     "maven",
     "apps",
-    "terms",
-    "privacy",
-    "license",
 }
 
 IGNORE_DIRS = {
