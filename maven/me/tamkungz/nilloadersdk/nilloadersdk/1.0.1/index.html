@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -351,200 +383,138 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-jar">
+            </tr>            <tr class="row-jar">
               <td class="type">jar</td>
               <td class="name"><a href="nilloadersdk-1.0.1-all.jar">nilloadersdk-1.0.1-all.jar</a></td>
               <td class="size">230.47 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-all.jar.md5">nilloadersdk-1.0.1-all.jar.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-all.jar.sha1">nilloadersdk-1.0.1-all.jar.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-all.jar.sha256">nilloadersdk-1.0.1-all.jar.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-all.jar.sha512">nilloadersdk-1.0.1-all.jar.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-jar">
+            </tr>            <tr class="row-jar">
               <td class="type">jar</td>
               <td class="name"><a href="nilloadersdk-1.0.1-javadoc.jar">nilloadersdk-1.0.1-javadoc.jar</a></td>
               <td class="size">141.06 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-javadoc.jar.md5">nilloadersdk-1.0.1-javadoc.jar.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-javadoc.jar.sha1">nilloadersdk-1.0.1-javadoc.jar.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-javadoc.jar.sha256">nilloadersdk-1.0.1-javadoc.jar.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-javadoc.jar.sha512">nilloadersdk-1.0.1-javadoc.jar.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-jar">
+            </tr>            <tr class="row-jar">
               <td class="type">jar</td>
               <td class="name"><a href="nilloadersdk-1.0.1-sources.jar">nilloadersdk-1.0.1-sources.jar</a></td>
               <td class="size">34.43 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-sources.jar.md5">nilloadersdk-1.0.1-sources.jar.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-sources.jar.sha1">nilloadersdk-1.0.1-sources.jar.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-sources.jar.sha256">nilloadersdk-1.0.1-sources.jar.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1-sources.jar.sha512">nilloadersdk-1.0.1-sources.jar.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-jar">
+            </tr>            <tr class="row-jar">
               <td class="type">jar</td>
               <td class="name"><a href="nilloadersdk-1.0.1.jar">nilloadersdk-1.0.1.jar</a></td>
               <td class="size">62.59 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.jar.md5">nilloadersdk-1.0.1.jar.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.jar.sha1">nilloadersdk-1.0.1.jar.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.jar.sha256">nilloadersdk-1.0.1.jar.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.jar.sha512">nilloadersdk-1.0.1.jar.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-module">
+            </tr>            <tr class="row-module">
               <td class="type">module</td>
               <td class="name"><a href="nilloadersdk-1.0.1.module">nilloadersdk-1.0.1.module</a></td>
               <td class="size">4.50 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.module.md5">nilloadersdk-1.0.1.module.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.module.sha1">nilloadersdk-1.0.1.module.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.module.sha256">nilloadersdk-1.0.1.module.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.module.sha512">nilloadersdk-1.0.1.module.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-pom">
+            </tr>            <tr class="row-pom">
               <td class="type">pom</td>
               <td class="name"><a href="nilloadersdk-1.0.1.pom">nilloadersdk-1.0.1.pom</a></td>
               <td class="size">1.59 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.pom.md5">nilloadersdk-1.0.1.pom.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.pom.sha1">nilloadersdk-1.0.1.pom.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.pom.sha256">nilloadersdk-1.0.1.pom.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="nilloadersdk-1.0.1.pom.sha512">nilloadersdk-1.0.1.pom.sha512</a></td>
               <td class="size">128 bytes</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.390378+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:37.121296+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 

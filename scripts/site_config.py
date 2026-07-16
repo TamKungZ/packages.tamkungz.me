@@ -34,6 +34,9 @@ AUTHOR_GITHUB_URL = "https://github.com/TamKungZ"
 # /arch/<arch>      Arch Linux pacman repository
 # /maven            Maven repository
 # /apps/<app>       human-readable product pages only
+# /terms            site terms of use
+# /privacy          privacy policy
+# /license          repository and artifact license terms
 PROJECT_ROOTS = {
     "apt",
     "rpm",
@@ -42,6 +45,9 @@ PROJECT_ROOTS = {
     "arch",
     "maven",
     "apps",
+    "terms",
+    "privacy",
+    "license",
 }
 
 IGNORE_DIRS = {
@@ -69,6 +75,108 @@ IGNORE_FILES = {
     "favicon-20260714.svg",
     "favicon-20260714.ico",
 }
+
+# --- Legal pages ---------------------------------------------------------
+
+LegalPage = dict[str, object]
+
+LEGAL_PAGES: list[LegalPage] = [
+    {
+        "slug": "terms",
+        "title": "Terms of Use",
+        "description": "Terms for using TamKungZ_ Packages as a public package repository.",
+        "sections": [
+            (
+                "Repository purpose",
+                [
+                    "TamKungZ_ Packages is provided as a public package repository for compatible package managers, build tools, and users downloading published project artifacts.",
+                    "You may use this service to install, build, test, or run projects that depend on artifacts published here.",
+                ],
+            ),
+            (
+                "Restrictions",
+                [
+                    "Do not redistribute, mirror, rehost, modify and redistribute, sell, sublicense, or claim ownership of artifacts from this repository unless a specific artifact license allows it.",
+                    "Do not use this repository as the source for unofficial package mirrors, bulk scraping, abusive automation, or traffic that disrupts availability for normal package-manager use.",
+                ],
+            ),
+            (
+                "Availability",
+                [
+                    "This service is provided as-is, without uptime, compatibility, support, or warranty guarantees.",
+                    "Artifacts, metadata, repository paths, and signing keys may change when needed for maintenance, security, or release management.",
+                ],
+            ),
+            (
+                "Contact",
+                [
+                    "For permission requests, takedown requests, or repository issues, contact dev@tamkungz.me.",
+                ],
+            ),
+        ],
+    },
+    {
+        "slug": "privacy",
+        "title": "Privacy Policy",
+        "description": "Privacy notes for visitors and package-manager clients using TamKungZ_ Packages.",
+        "sections": [
+            (
+                "Data collected",
+                [
+                    "This site does not provide user accounts, comments, or payment forms.",
+                    "Normal web server, CDN, hosting, and security logs may record request metadata such as IP address, user agent, requested URL, referrer, status code, and timestamp.",
+                ],
+            ),
+            (
+                "Analytics",
+                [
+                    "Generated package index pages include the Ahrefs analytics script to understand aggregate site traffic.",
+                    "Package managers and automated clients may also appear in server or analytics logs when they request repository metadata or artifacts.",
+                ],
+            ),
+            (
+                "Use of data",
+                [
+                    "Operational data is used to maintain the repository, investigate abuse, debug availability problems, and understand aggregate usage.",
+                    "This site does not intentionally sell personal information.",
+                ],
+            ),
+            (
+                "Contact",
+                [
+                    "For privacy questions or removal requests, contact dev@tamkungz.me.",
+                ],
+            ),
+        ],
+    },
+    {
+        "slug": "license",
+        "title": "License and Artifact Use",
+        "description": "License terms for this package repository and published artifacts.",
+        "sections": [
+            (
+                "Repository license",
+                [
+                    "This package repository is all rights reserved unless stated otherwise.",
+                    "You are allowed to download artifacts through compatible package managers or build tools for building, testing, installing, or running projects that depend on them.",
+                ],
+            ),
+            (
+                "Artifact licenses",
+                [
+                    "Individual artifacts may include their own license terms in their POM, package metadata, documentation, source repository, or distribution page.",
+                    "If an artifact provides separate terms, those terms apply to that artifact. If no separate license is provided, all rights are reserved.",
+                ],
+            ),
+            (
+                "Redistribution",
+                [
+                    "Do not redistribute, mirror, rehost, modify and redistribute, sell, sublicense, or claim ownership of repository artifacts unless the artifact's own license explicitly permits it.",
+                ],
+            ),
+        ],
+    },
+]
 
 # --- Remote README sources -------------------------------------------
 

@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -329,68 +361,50 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-pacman-metadata">
+            </tr>            <tr class="row-pacman-metadata">
               <td class="type">pacman metadata</td>
               <td class="name"><a href="tamkungz.db">tamkungz.db</a></td>
               <td class="size">908 bytes</td>
-            </tr>
-            
-            <tr class="row-pacman-metadata">
+            </tr>            <tr class="row-pacman-metadata">
               <td class="type">pacman metadata</td>
               <td class="name"><a href="tamkungz.db.tar.gz">tamkungz.db.tar.gz</a></td>
               <td class="size">908 bytes</td>
-            </tr>
-            
-            <tr class="row-pacman-metadata">
+            </tr>            <tr class="row-pacman-metadata">
               <td class="type">pacman metadata</td>
               <td class="name"><a href="tamkungz.files">tamkungz.files</a></td>
               <td class="size">1.15 KB</td>
-            </tr>
-            
-            <tr class="row-pacman-metadata">
+            </tr>            <tr class="row-pacman-metadata">
               <td class="type">pacman metadata</td>
               <td class="name"><a href="tamkungz.files.tar.gz">tamkungz.files.tar.gz</a></td>
               <td class="size">1.15 KB</td>
-            </tr>
-            
-            <tr class="row-pacman-package">
+            </tr>            <tr class="row-pacman-package">
               <td class="type">pacman package</td>
               <td class="name"><a href="tar-install-0.2.0-0-x86_64.pkg.tar.zst">tar-install-0.2.0-0-x86_64.pkg.tar.zst</a></td>
               <td class="size">174.58 KB</td>
-            </tr>
-            
-            <tr class="row-pacman-package">
+            </tr>            <tr class="row-pacman-package">
               <td class="type">pacman package</td>
               <td class="name"><a href="tar-install-debug-0.2.0-0-x86_64.pkg.tar.zst">tar-install-debug-0.2.0-0-x86_64.pkg.tar.zst</a></td>
               <td class="size">25.21 KB</td>
-            </tr>
-            
-            <tr class="row-pacman-package">
+            </tr>            <tr class="row-pacman-package">
               <td class="type">pacman package</td>
               <td class="name"><a href="tarminal-0.2.0-0-x86_64.pkg.tar.zst">tarminal-0.2.0-0-x86_64.pkg.tar.zst</a></td>
               <td class="size">1.32 MB</td>
-            </tr>
-            
-            <tr class="row-pacman-package">
+            </tr>            <tr class="row-pacman-package">
               <td class="type">pacman package</td>
               <td class="name"><a href="tarminal-debug-0.2.0-0-x86_64.pkg.tar.zst">tarminal-debug-0.2.0-0-x86_64.pkg.tar.zst</a></td>
               <td class="size">176.04 KB</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.233461+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:37.003791+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 

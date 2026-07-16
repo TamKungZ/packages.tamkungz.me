@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -329,68 +361,50 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-file">
+            </tr>            <tr class="row-file">
               <td class="type">file</td>
               <td class="name"><a href="0b3218ddae0f957986cd5826a8a8b54bbebccb31e78e2846a0f8f88c8fc1a5f6-primary.sqlite.bz2">0b3218ddae0f957986cd5826a8a8b54bbebccb31e78e2846a0f8f88c8fc1a5f6-primary.sqlite.bz2</a></td>
               <td class="size">5.90 KB</td>
-            </tr>
-            
-            <tr class="row-file">
+            </tr>            <tr class="row-file">
               <td class="type">file</td>
               <td class="name"><a href="1bcdb48be8b4bca842a1cd7e8bc0e207f453dc7e32b1043f962bda6797f5488e-filelists.sqlite.bz2">1bcdb48be8b4bca842a1cd7e8bc0e207f453dc7e32b1043f962bda6797f5488e-filelists.sqlite.bz2</a></td>
               <td class="size">3.34 KB</td>
-            </tr>
-            
-            <tr class="row-file">
+            </tr>            <tr class="row-file">
               <td class="type">file</td>
               <td class="name"><a href="48b0fe335b011af66dc769c831ce361d2416c61ac59fae5806f2ad47f5d3f35b-other.sqlite.bz2">48b0fe335b011af66dc769c831ce361d2416c61ac59fae5806f2ad47f5d3f35b-other.sqlite.bz2</a></td>
               <td class="size">1.14 KB</td>
-            </tr>
-            
-            <tr class="row-metadata">
+            </tr>            <tr class="row-metadata">
               <td class="type">metadata</td>
               <td class="name"><a href="71215b2028bc8006d447aa14371dc0574109cc6d40d7d3c369a070588265af93-primary.xml.gz">71215b2028bc8006d447aa14371dc0574109cc6d40d7d3c369a070588265af93-primary.xml.gz</a></td>
               <td class="size">1.83 KB</td>
-            </tr>
-            
-            <tr class="row-metadata">
+            </tr>            <tr class="row-metadata">
               <td class="type">metadata</td>
               <td class="name"><a href="c03967a825ab0abcfd90ee3ae54d554cb0007bf2d0afc0e4d582c955b7db8353-filelists.xml.gz">c03967a825ab0abcfd90ee3ae54d554cb0007bf2d0afc0e4d582c955b7db8353-filelists.xml.gz</a></td>
               <td class="size">1.11 KB</td>
-            </tr>
-            
-            <tr class="row-metadata">
+            </tr>            <tr class="row-metadata">
               <td class="type">metadata</td>
               <td class="name"><a href="f081d6efd490561b2b37b033761e67c7fdf42ec0f519eae74dc1274b7a52a5a1-other.xml.gz">f081d6efd490561b2b37b033761e67c7fdf42ec0f519eae74dc1274b7a52a5a1-other.xml.gz</a></td>
               <td class="size">569 bytes</td>
-            </tr>
-            
-            <tr class="row-rpm-metadata">
+            </tr>            <tr class="row-rpm-metadata">
               <td class="type">rpm metadata</td>
               <td class="name"><a href="repomd.xml">repomd.xml</a></td>
               <td class="size">3.00 KB</td>
-            </tr>
-            
-            <tr class="row-rpm-metadata">
+            </tr>            <tr class="row-rpm-metadata">
               <td class="type">rpm metadata</td>
               <td class="name"><a href="repomd.xml.asc">repomd.xml.asc</a></td>
               <td class="size">833 bytes</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.290925+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:37.051974+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 

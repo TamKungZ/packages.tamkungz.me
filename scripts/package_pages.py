@@ -278,13 +278,12 @@ def make_index(root: Path, directory: Path, generated_pages: list[Path]) -> None
 
     if directory != root:
         rows.append(
-            """
+            """\
             <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            """
+            </tr>"""
         )
 
     for child in visible_children(root, directory):
@@ -294,13 +293,12 @@ def make_index(root: Path, directory: Path, generated_pages: list[Path]) -> None
         size = "" if child.is_dir() else file_size(child)
 
         rows.append(
-            f"""
+            f"""\
             <tr class="{escape(row_class(kind))}">
               <td class="type">{escape(kind)}</td>
               <td class="name"><a href="{escape(href)}">{escape(name)}</a></td>
               <td class="size">{escape(size)}</td>
-            </tr>
-            """
+            </tr>"""
         )
 
     html = render.render_page(

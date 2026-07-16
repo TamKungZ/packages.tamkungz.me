@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -329,86 +361,62 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-directory">
+            </tr>            <tr class="row-directory">
               <td class="type">directory</td>
               <td class="name"><a href="repodata/">repodata/</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="livedesk-0.1.0-1.x86_64.rpm">livedesk-0.1.0-1.x86_64.rpm</a></td>
               <td class="size">645.92 KB</td>
-            </tr>
-            
-            <tr class="row-signature">
+            </tr>            <tr class="row-signature">
               <td class="type">signature</td>
               <td class="name"><a href="livedesk-0.1.0-1.x86_64.rpm.asc">livedesk-0.1.0-1.x86_64.rpm.asc</a></td>
               <td class="size">833 bytes</td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="livedesk-0.1.1-1.x86_64.rpm">livedesk-0.1.1-1.x86_64.rpm</a></td>
               <td class="size">646.88 KB</td>
-            </tr>
-            
-            <tr class="row-signature">
+            </tr>            <tr class="row-signature">
               <td class="type">signature</td>
               <td class="name"><a href="livedesk-0.1.1-1.x86_64.rpm.asc">livedesk-0.1.1-1.x86_64.rpm.asc</a></td>
               <td class="size">833 bytes</td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="livedesk-0.1.2-1.x86_64.rpm">livedesk-0.1.2-1.x86_64.rpm</a></td>
               <td class="size">648.78 KB</td>
-            </tr>
-            
-            <tr class="row-signature">
+            </tr>            <tr class="row-signature">
               <td class="type">signature</td>
               <td class="name"><a href="livedesk-0.1.2-1.x86_64.rpm.asc">livedesk-0.1.2-1.x86_64.rpm.asc</a></td>
               <td class="size">833 bytes</td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="livedesk-0.1.3-1.x86_64.rpm">livedesk-0.1.3-1.x86_64.rpm</a></td>
               <td class="size">651.83 KB</td>
-            </tr>
-            
-            <tr class="row-signature">
+            </tr>            <tr class="row-signature">
               <td class="type">signature</td>
               <td class="name"><a href="livedesk-0.1.3-1.x86_64.rpm.asc">livedesk-0.1.3-1.x86_64.rpm.asc</a></td>
               <td class="size">833 bytes</td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="tar-install-0.2.0-1.x86_64.rpm">tar-install-0.2.0-1.x86_64.rpm</a></td>
               <td class="size">154.78 KB</td>
-            </tr>
-            
-            <tr class="row-rpm">
+            </tr>            <tr class="row-rpm">
               <td class="type">rpm</td>
               <td class="name"><a href="tarminal-0.2.0-1.x86_64.rpm">tarminal-0.2.0-1.x86_64.rpm</a></td>
               <td class="size">1.27 MB</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.281551+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:37.044165+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 

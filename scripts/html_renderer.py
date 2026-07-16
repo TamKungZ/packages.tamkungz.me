@@ -270,6 +270,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -399,14 +431,23 @@ def render_footer_credit(
     author_twitter_handle: str,
     author_email: str,
     author_github_url: str,
+    base_url: str,
 ) -> str:
     twitter_handle = author_twitter_handle.lstrip("@")
     twitter_url = f"https://x.com/{twitter_handle}"
+    legal_links = (
+        f'<div class="footer-links">'
+        f'<a href="{escape(base_url)}/terms/">Terms</a>'
+        f'<a href="{escape(base_url)}/privacy/">Privacy</a>'
+        f'<a href="{escape(base_url)}/license/">License</a>'
+        f"</div>"
+    )
 
     return (
         f'Made by <a href="{escape(author_github_url)}">{escape(author_name)}</a>'
         f' &middot; <a href="{escape(twitter_url)}">X</a>'
         f' &middot; <a href="mailto:{escape(author_email)}">{escape(author_email)}</a>'
+        f"{legal_links}"
     )
 
 
@@ -446,7 +487,7 @@ def render_page(
         author_name, author_twitter_handle, author_email, author_github_url, site_name, base_url
     )
     footer_credit = render_footer_credit(
-        author_name, author_twitter_handle, author_email, author_github_url
+        author_name, author_twitter_handle, author_email, author_github_url, base_url
     )
 
     return f"""<!doctype html>
@@ -495,6 +536,109 @@ def render_page(
         </tbody>
       </table>
     </section>
+
+    <footer>
+      Generated at {escape(generated_at)}<br>
+      {footer_credit}
+    </footer>
+  </main>
+
+  <script>{COPY_SCRIPT}</script>
+</body>
+</html>
+"""
+
+
+def render_document_sections(sections: list[tuple[str, list[str]]]) -> str:
+    rendered_sections = []
+    for heading, paragraphs in sections:
+        paragraphs_html = "\n".join(f"        <p>{escape(text)}</p>" for text in paragraphs)
+        rendered_sections.append(
+            f"""
+      <section class="document-section">
+        <h2>{escape(heading)}</h2>
+{paragraphs_html}
+      </section>"""
+        )
+
+    return "\n".join(rendered_sections)
+
+
+def render_document_page(
+    *,
+    title: str,
+    description: str,
+    path_text: str,
+    canonical_url: str,
+    favicon_svg_url: str,
+    favicon_ico_url: str,
+    theme_color: str,
+    site_name: str,
+    base_url: str,
+    sections: list[tuple[str, list[str]]],
+    generated_at: str,
+    author_name: str,
+    author_twitter_handle: str,
+    author_email: str,
+    author_github_url: str,
+) -> str:
+    page_css = PAGE_CSS.replace(
+        "__BACKGROUND_IMAGE_URL__",
+        relative_asset_url(path_text, BACKGROUND_IMAGE_PATH),
+    )
+
+    author_meta = render_author_meta(author_name, author_twitter_handle)
+    author_link_tags = render_author_link_tags(author_github_url, author_email)
+    author_jsonld = render_author_jsonld(
+        author_name, author_twitter_handle, author_email, author_github_url, site_name, base_url
+    )
+    footer_credit = render_footer_credit(
+        author_name, author_twitter_handle, author_email, author_github_url, base_url
+    )
+    sections_html = render_document_sections(sections)
+
+    return f"""<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{escape(title)}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{escape(description)}">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="{escape(theme_color)}">
+
+  <link rel="canonical" href="{escape(canonical_url)}">
+  <link rel="icon" href="{escape(favicon_svg_url)}" type="image/svg+xml">
+  <link rel="icon" href="{escape(favicon_ico_url)}" sizes="any">
+  <link rel="shortcut icon" href="{escape(favicon_ico_url)}" type="image/x-icon">
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="{escape(title)}">
+  <meta property="og:description" content="{escape(description)}">
+  <meta property="og:url" content="{escape(canonical_url)}">
+  <meta property="og:site_name" content="{escape(site_name)}">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{escape(title)}">
+  <meta name="twitter:description" content="{escape(description)}">
+{author_meta}
+{author_link_tags}
+
+  <script src="https://analytics.ahrefs.com/analytics.js" data-key="vTi0PrM7Qf4AAjrUB/x8WA" async></script>
+  <style>{page_css}</style>
+{author_jsonld}
+</head>
+<body>
+  <main>
+    <header>
+      <h1>{escape(title)}</h1>
+      <div class="subtitle">{escape(description)}</div>
+      <div class="path">{escape(path_text)}</div>
+    </header>
+
+    <article class="document">
+{sections_html}
+    </article>
 
     <footer>
       Generated at {escape(generated_at)}<br>

@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -329,32 +361,26 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-apt-index">
+            </tr>            <tr class="row-apt-index">
               <td class="type">apt index</td>
               <td class="name"><a href="Packages">Packages</a></td>
               <td class="size">4.33 KB</td>
-            </tr>
-            
-            <tr class="row-apt-index">
+            </tr>            <tr class="row-apt-index">
               <td class="type">apt index</td>
               <td class="name"><a href="Packages.gz">Packages.gz</a></td>
               <td class="size">1.37 KB</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.203252+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:36.980636+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 

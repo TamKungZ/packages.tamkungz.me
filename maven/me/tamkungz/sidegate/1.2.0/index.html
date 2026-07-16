@@ -283,6 +283,38 @@ footer {
   font-size: 12px;
 }
 
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.document {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--panel);
+}
+
+.document-section {
+  padding: 12px;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.document-section:last-child { border-bottom: 0; }
+
+.document-section h2 {
+  margin: 0 0 8px;
+  font-size: 17px;
+}
+
+.document-section p {
+  max-width: 860px;
+  margin: 0 0 8px;
+}
+
+.document-section p:last-child { margin-bottom: 0; }
+
 @media (max-width: 640px) {
   main {
     width: min(100% - 16px, 1180px);
@@ -351,80 +383,58 @@ footer {
     <section class="table-wrap" aria-label="Directory listing">
       <table>
         <tbody>
-          
-            <tr class="row-directory">
+                      <tr class="row-directory">
               <td class="type">dir</td>
               <td class="name"><a href="../">../</a></td>
               <td class="size"></td>
-            </tr>
-            
-            <tr class="row-jar">
+            </tr>            <tr class="row-jar">
               <td class="type">jar</td>
               <td class="name"><a href="sidegate-1.2.0.jar">sidegate-1.2.0.jar</a></td>
               <td class="size">29.59 KB</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.jar.md5">sidegate-1.2.0.jar.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.jar.sha1">sidegate-1.2.0.jar.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.jar.sha256">sidegate-1.2.0.jar.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.jar.sha512">sidegate-1.2.0.jar.sha512</a></td>
               <td class="size">128 bytes</td>
-            </tr>
-            
-            <tr class="row-pom">
+            </tr>            <tr class="row-pom">
               <td class="type">pom</td>
               <td class="name"><a href="sidegate-1.2.0.pom">sidegate-1.2.0.pom</a></td>
               <td class="size">557 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.pom.md5">sidegate-1.2.0.pom.md5</a></td>
               <td class="size">32 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.pom.sha1">sidegate-1.2.0.pom.sha1</a></td>
               <td class="size">40 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.pom.sha256">sidegate-1.2.0.pom.sha256</a></td>
               <td class="size">64 bytes</td>
-            </tr>
-            
-            <tr class="row-checksum">
+            </tr>            <tr class="row-checksum">
               <td class="type">checksum</td>
               <td class="name"><a href="sidegate-1.2.0.pom.sha512">sidegate-1.2.0.pom.sha512</a></td>
               <td class="size">128 bytes</td>
             </tr>
-            
         </tbody>
       </table>
     </section>
 
     <footer>
-      Generated at 2026-07-15T17:57:04.584416+00:00<br>
-      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a>
+      Generated at 2026-07-16T10:10:37.246990+00:00<br>
+      Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
 
