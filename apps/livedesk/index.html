@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title>TamKungZ_ Packages - /apps/livedesk/</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell native background patch, a GStreamer daemon, and a GTK/Libadwaita configuration app.">
+  <meta name="description" content="Livedesk lets GNOME use a video file as the desktop background through a native GNOME Shell background overlay, a Rust/GStreamer daemon, and a GTK/Libadwaita app.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#03983d">
 
@@ -15,13 +15,13 @@
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="TamKungZ_ Packages - /apps/livedesk/">
-  <meta property="og:description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell native background patch, a GStreamer daemon, and a GTK/Libadwaita configuration app.">
+  <meta property="og:description" content="Livedesk lets GNOME use a video file as the desktop background through a native GNOME Shell background overlay, a Rust/GStreamer daemon, and a GTK/Libadwaita app.">
   <meta property="og:url" content="https://packages.tamkungz.me/apps/livedesk/">
   <meta property="og:site_name" content="TamKungZ_ Packages">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="TamKungZ_ Packages - /apps/livedesk/">
-  <meta name="twitter:description" content="Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell native background patch, a GStreamer daemon, and a GTK/Libadwaita configuration app.">
+  <meta name="twitter:description" content="Livedesk lets GNOME use a video file as the desktop background through a native GNOME Shell background overlay, a Rust/GStreamer daemon, and a GTK/Libadwaita app.">
 
   <meta name="author" content="TamKungZ_">
   <meta name="twitter:site" content="@TamKungZ_">
@@ -354,7 +354,7 @@ footer {
   <main>
     <header>
       <h1>TamKungZ_ Packages - /apps/livedesk/</h1>
-      <div class="subtitle">Livedesk is a live video wallpaper app for GNOME. It includes a GNOME Shell native background patch, a GStreamer daemon, and a GTK/Libadwaita configuration app.</div>
+      <div class="subtitle">Livedesk lets GNOME use a video file as the desktop background. Version 1.0.0 uses GNOME's normal wallpaper URI, a native Shell background overlay, a Rust/GStreamer daemon, and a GTK/Libadwaita app.</div>
       <div class="path">/apps/livedesk/</div>
     </header>
 
@@ -368,6 +368,78 @@ footer {
             </tr>
         </tbody>
       </table>
+    </section>
+
+    <section class="install" aria-label="Install Livedesk">
+      <div class="install-title">Install Livedesk 1.0.0</div>
+      <div class="install-body">
+        <div class="code-block">
+          <div class="code-head">
+            <div class="code-title"><span class="code-lang">apt</span><span>Debian / Ubuntu repository</span></div>
+            <button class="copy-btn" type="button" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><code>curl -fsSL https://packages.tamkungz.me/gpg.key \
+  | sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-archive-keyring.gpg
+echo "deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/tamkungz-archive-keyring.gpg] https://packages.tamkungz.me/apt stable main" \
+  | sudo tee /etc/apt/sources.list.d/tamkungz.list
+sudo apt update
+sudo apt install livedesk
+livedesk-setup
+livedesk</code></pre>
+        </div>
+
+        <div class="code-block">
+          <div class="code-head">
+            <div class="code-title"><span class="code-lang">dnf</span><span>Fedora / RHEL-like repository</span></div>
+            <button class="copy-btn" type="button" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><code>sudo rpm --import https://packages.tamkungz.me/gpg.key
+sudo tee /etc/yum.repos.d/tamkungz.repo &gt;/dev/null &lt;&lt;'EOF'
+[tamkungz]
+name=TamKungZ Packages
+baseurl=https://packages.tamkungz.me/rpm/$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.tamkungz.me/gpg.key
+EOF
+sudo dnf install livedesk
+livedesk-setup
+livedesk</code></pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="document" aria-label="Livedesk notes">
+      <div class="document-section">
+        <h2>What it does</h2>
+        <p>Livedesk writes a video URI to GNOME's own <code>org.gnome.desktop.background picture-uri</code> and <code>picture-uri-dark</code> settings. The native GNOME Shell overlay detects video wallpaper URIs and asks <code>livedesk-daemon</code> to decode frames into <code>$XDG_RUNTIME_DIR/livedesk</code>.</p>
+        <p>It is not a hidden fullscreen video player. Normal windows sit above the live background the same way they sit above a normal wallpaper.</p>
+      </div>
+      <div class="document-section">
+        <h2>Support status</h2>
+        <p>The current native setup targets GNOME Shell 40-44 and has been tested on GNOME Shell 43.x. GNOME Shell 45+ changed its JavaScript module layout and needs a separate native overlay before it is treated as supported.</p>
+        <p>APT packages are available for <code>amd64</code> and <code>arm64</code>. RPM packages are published under architecture-specific repos, so the recommended RPM base URL uses <code>$basearch</code>.</p>
+      </div>
+      <div class="document-section">
+        <h2>After install</h2>
+        <p>Run <code>livedesk-setup</code> once, log out and back in, then open <code>livedesk</code>. Put videos in <code>~/Videos/Livedesk</code>, double-click a thumbnail, or select a video and click <code>Save and Apply</code>.</p>
+        <p>The app can import videos, generate thumbnails, control service mode/autostart, start an Ayatana/AppIndicator tray helper, restore the normal wallpaper, and write detailed logs to <code>~/.cache/livedesk/livedesk.log</code>.</p>
+      </div>
+      <div class="document-section">
+        <h2>Emergency recovery</h2>
+        <p>Native setup changes how GNOME Shell loads JavaScript on the next login. If GNOME shows <code>Oh no! Something has gone wrong.</code>, open a TTY with <code>Ctrl+Alt+F3</code>, log in, and run:</p>
+        <div class="code-block">
+          <div class="code-head">
+            <div class="code-title"><span class="code-lang">sh</span><span>TTY recovery</span></div>
+            <button class="copy-btn" type="button" onclick="copyCode(this)">copy</button>
+          </div>
+          <pre><code>rm -f ~/.config/environment.d/90-livedesk-gnome-shell.conf
+rm -rf ~/.local/share/livedesk/gnome-shell-js
+sudo systemctl restart gdm</code></pre>
+        </div>
+        <p>If the distro does not use GDM, run <code>sudo reboot</code>. Return to the graphical session with <code>Ctrl+Alt+F1</code> or, on some systems, <code>Ctrl+Alt+F2</code>.</p>
+      </div>
     </section>
 
     <footer>
