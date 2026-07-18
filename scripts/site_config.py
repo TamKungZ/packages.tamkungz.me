@@ -193,22 +193,26 @@ APP_README_SOURCES = {
 UsageBlock = tuple[str, str, str]
 
 
-def apt_usage_block(base_url: str) -> UsageBlock:
+def apt_usage_block(
+    base_url: str,
+    package_name: str = "<package-name>",
+    architectures: str = "amd64,arm64",
+) -> UsageBlock:
     return (
         "Debian / Ubuntu / Zorin",
         "bash",
         f"""curl -fsSL {base_url}/gpg.key | \\
   sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {base_url}/apt stable main" | \\
+echo "deb [arch={architectures} signed-by=/usr/share/keyrings/tamkungz-packages.gpg] {base_url}/apt stable main" | \\
   sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
 sudo apt update
-sudo apt install tarminal""",
+sudo apt install {package_name}""",
     )
 
 
-def rpm_usage_block(base_url: str) -> UsageBlock:
+def rpm_usage_block(base_url: str, package_name: str = "<package-name>") -> UsageBlock:
     return (
         "Fedora / RPM",
         "bash",
@@ -222,11 +226,11 @@ repo_gpgcheck=1
 gpgkey={base_url}/gpg.key
 EOF
 
-sudo dnf install tarminal""",
+sudo dnf install {package_name}""",
     )
 
 
-def alpine_usage_block(base_url: str) -> UsageBlock:
+def alpine_usage_block(base_url: str, package_name: str = "<package-name>") -> UsageBlock:
     return (
         "Alpine APK",
         "bash",
@@ -238,11 +242,11 @@ echo "{base_url}/apk/$(apk --print-arch)" | \\
   sudo tee -a /etc/apk/repositories
 
 sudo apk update
-sudo apk add tarminal""",
+sudo apk add {package_name}""",
     )
 
 
-def void_usage_block(base_url: str) -> UsageBlock:
+def void_usage_block(base_url: str, package_name: str = "<package-name>") -> UsageBlock:
     return (
         "Void XBPS",
         "bash",
@@ -252,11 +256,11 @@ repository={base_url}/xbps/x86_64
 EOF
 
 sudo xbps-install -S
-sudo xbps-install tarminal""",
+sudo xbps-install {package_name}""",
     )
 
 
-def arch_usage_block(base_url: str) -> UsageBlock:
+def arch_usage_block(base_url: str, package_name: str = "<package-name>") -> UsageBlock:
     return (
         "Arch Linux",
         "bash",
@@ -270,7 +274,7 @@ SigLevel = DatabaseRequired PackageOptional
 EOF
 
 sudo pacman -Sy
-sudo pacman -S tarminal""",
+sudo pacman -S {package_name}""",
     )
 
 
@@ -304,11 +308,11 @@ def root_usage_blocks(base_url: str, maven_repo_url: str | None = None) -> list[
 
 def tarminal_usage_blocks(base_url: str) -> list[UsageBlock]:
     return [
-        apt_usage_block(base_url),
-        rpm_usage_block(base_url),
-        alpine_usage_block(base_url),
-        void_usage_block(base_url),
-        arch_usage_block(base_url),
+        apt_usage_block(base_url, package_name="tarminal", architectures="amd64"),
+        rpm_usage_block(base_url, package_name="tarminal"),
+        alpine_usage_block(base_url, package_name="tarminal"),
+        void_usage_block(base_url, package_name="tarminal"),
+        arch_usage_block(base_url, package_name="tarminal"),
     ]
 
 

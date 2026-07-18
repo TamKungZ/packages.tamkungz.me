@@ -373,11 +373,11 @@ footer {
         <pre><code class="language-bash">curl -fsSL https://packages.tamkungz.me/gpg.key | \
   sudo gpg --dearmor -o /usr/share/keyrings/tamkungz-packages.gpg
 
-echo &quot;deb [arch=amd64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main&quot; | \
+echo &quot;deb [arch=amd64,arm64 signed-by=/usr/share/keyrings/tamkungz-packages.gpg] https://packages.tamkungz.me/apt stable main&quot; | \
   sudo tee /etc/apt/sources.list.d/tamkungz-packages.list
 
 sudo apt update
-sudo apt install tarminal</code></pre>
+sudo apt install &lt;package-name&gt;</code></pre>
       </div>
 
       <div class="code-block">
@@ -398,7 +398,7 @@ repo_gpgcheck=1
 gpgkey=https://packages.tamkungz.me/gpg.key
 EOF
 
-sudo dnf install tarminal</code></pre>
+sudo dnf install &lt;package-name&gt;</code></pre>
       </div>
 
       <div class="code-block">
@@ -417,7 +417,7 @@ echo &quot;https://packages.tamkungz.me/apk/$(apk --print-arch)&quot; | \
   sudo tee -a /etc/apk/repositories
 
 sudo apk update
-sudo apk add tarminal</code></pre>
+sudo apk add &lt;package-name&gt;</code></pre>
       </div>
 
       <div class="code-block">
@@ -434,7 +434,7 @@ repository=https://packages.tamkungz.me/xbps/x86_64
 EOF
 
 sudo xbps-install -S
-sudo xbps-install tarminal</code></pre>
+sudo xbps-install &lt;package-name&gt;</code></pre>
       </div>
 
       <div class="code-block">
@@ -455,7 +455,7 @@ SigLevel = DatabaseRequired PackageOptional
 EOF
 
 sudo pacman -Sy
-sudo pacman -S tarminal</code></pre>
+sudo pacman -S &lt;package-name&gt;</code></pre>
       </div>
 
       <div class="code-block">
@@ -517,7 +517,7 @@ sudo pacman -S tarminal</code></pre>
     </section>
 
     <footer>
-      Generated at 2026-07-18T10:40:47.948123+00:00<br>
+      Generated at 2026-07-18T11:30:24.866890+00:00<br>
       Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>
