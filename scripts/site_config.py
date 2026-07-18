@@ -26,14 +26,15 @@ AUTHOR_GITHUB_URL = "https://github.com/TamKungZ"
 # --- Repository layout ---------------------------------------------------
 
 # Root-level package repository layout. release.yml currently publishes
-# apt/rpm/apk/xbps/arch/apps; JVM artifacts live under /maven.
+# apt/rpm/apk/xbps/arch; JVM artifacts live under /maven.
+# App landing pages moved to https://dev.tamkungz.me/projects/.
+# Do not generate /apps pages here anymore.
 # /apt              APT repository shared by all Debian packages
 # /rpm/<basearch>   RPM repository shared by all RPM packages
 # /apk/<arch>       Alpine APK repository
 # /xbps/<arch>      Void Linux XBPS repository
 # /arch/<arch>      Arch Linux pacman repository
 # /maven            Maven repository
-# /apps/<app>       human-readable product pages only
 PROJECT_ROOTS = {
     "apt",
     "rpm",
@@ -41,13 +42,13 @@ PROJECT_ROOTS = {
     "xbps",
     "arch",
     "maven",
-    "apps",
 }
 
 IGNORE_DIRS = {
     ".git",
     ".github",
     "scripts",
+    "apps",
     "examples",
     "resources",
     "target",
@@ -175,9 +176,9 @@ LEGAL_PAGES: list[LegalPage] = [
 
 # --- Remote README sources -------------------------------------------
 
-# Some /apps/<name>/ pages describe a project that lives in its own repo
-# rather than in this one. For those, fetch the description straight from
-# the upstream README instead of expecting a local README.md copy.
+# App landing pages used to live under /apps/<name> on the package site.
+# Those pages now live on dev.tamkungz.me/projects, so these README sources
+# are kept only for package-directory summaries if reused later.
 TARMINAL_README_URL = "https://raw.githubusercontent.com/TamKungZ/tarminal-tar-install/refs/heads/main/README.md"
 
 APP_README_SOURCES = {

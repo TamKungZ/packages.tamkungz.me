@@ -243,15 +243,6 @@ def page_description(root: Path, directory: Path) -> str:
     if path.startswith("/arch/") or path == "/arch/":
         return "Arch Linux pacman repository shared by TamKungZ_ Linux packages."
 
-    if path == "/apps/":
-        return "Human-readable app pages. Package downloads are served from /apt, /rpm, /apk, /xbps, and /arch."
-
-    if path.startswith("/apps/"):
-        app_name = directory.name
-        summary = read_remote_readme_summary(app_name) or read_local_readme_summary(directory)
-        if summary:
-            return summary
-        return f"Human-readable package page for {app_name}."
 
     return f"Browse public package files in {path}."
 
@@ -261,8 +252,6 @@ def page_usage(root: Path, directory: Path) -> list[tuple[str, str, str]] | None
 
     if path == "/":
         return data.root_usage_blocks(data.BASE_URL, maven_url(root))
-    if path == "/apps/tarminal/":
-        return data.tarminal_usage_blocks(data.BASE_URL)
 
     return None
 
@@ -341,17 +330,7 @@ def generate_package_pages(root: Path) -> list[Path]:
         if any(part.startswith(".") and part not in {".well-known"} for part in relative_parts):
             continue
 
-        if has_existing_index(directory):
-            try:
-                parts = directory.relative_to(root).parts
-                if len(parts) >= 2 and parts[0] == "apps":
-                    generated_pages.append(directory)
-                    continue
-            except (ValueError, IndexError):
-                pass
-
-        if is_app_page_dir(root, directory) and has_existing_index(directory):
-            generated_pages.append(directory)
+        if is_app_page_dir(root, directory):
             continue
 
         make_index(root, directory, generated_pages)

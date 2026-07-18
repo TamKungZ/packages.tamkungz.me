@@ -58,10 +58,7 @@ def sitemap_priority(root: Path, directory: Path) -> float:
 
     if not parts:
         return 1.0
-    if len(parts) == 2 and parts[0] == "apps":
-        return 0.95
-    if parts == ("apps",):
-        return 0.9
+
     if len(parts) == 1 and parts[0] in PACKAGE_ROOT_ORDER:
         return 0.75
     if parts and parts[0] in PACKAGE_ROOT_ORDER:
@@ -76,14 +73,10 @@ def sitemap_sort_key(root: Path, directory: Path) -> tuple[int, int, str]:
 
     if not parts:
         return (0, 0, path)
-    if len(parts) == 2 and parts[0] == "apps":
-        return (1, 0, path)
-    if parts == ("apps",):
-        return (2, 0, path)
     if parts and parts[0] in PACKAGE_ROOT_ORDER:
-        return (3, PACKAGE_ROOT_ORDER[parts[0]], path)
+        return (1, PACKAGE_ROOT_ORDER[parts[0]], path)
 
-    return (4, 0, path)
+    return (2, 0, path)
 
 
 def write_robots(root: Path) -> None:
