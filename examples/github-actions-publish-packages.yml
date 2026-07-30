@@ -1,0 +1,170 @@
+name: Publish Packages Site
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+env:
+  PACKAGES_REPO: TamKungZ/packages.tamkungz.me
+  PACKAGES_BRANCH: main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - target: x86_64
+            deb_arch: amd64
+            rpm_arch: x86_64
+            apk_arch: x86_64
+            xbps_arch: x86_64
+            arch_arch: x86_64
+          - target: aarch64
+            deb_arch: arm64
+            rpm_arch: aarch64
+            apk_arch: aarch64
+            xbps_arch: aarch64
+            arch_arch: aarch64
+
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build project artifacts
+        run: |
+          python -m pip install --upgrade pip
+          # Replace this with your real project build for ${{ matrix.target }}.
+          # Examples:
+          #   python -m build
+          #   ./gradlew publish -Ptarget=${{ matrix.target }}
+          #   cargo build --release --target ${{ matrix.target }}-unknown-linux-gnu
+          python -m compileall .
+
+      - name: Upload built artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: packages-${{ matrix.target }}
+          path: |
+            dist/**
+            build/maven-repo/**
+          if-no-files-found: ignore
+
+  publish:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Checkout package repository
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ env.PACKAGES_REPO }}
+          ref: ${{ env.PACKAGES_BRANCH }}
+          token: ${{ secrets.PACKAGES_REPO_TOKEN }}
+          path: packages-site
+
+      - name: Download built artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: built-artifacts
+
+      - name: Copy package artifacts
+        run: |
+          # Replace these examples with the formats this project publishes.
+          # Keep the native repository metadata files in sync with the artifacts.
+          #
+          # Matrix build artifacts are downloaded under:
+          #   built-artifacts/packages-x86_64/
+          #   built-artifacts/packages-aarch64/
+          #
+          # APT:
+          #   cp dist/*.deb packages-site/apt/pool/main/<first-letter>/<package-name>/
+          #
+          # RPM:
+          #   mkdir -p packages-site/rpm/x86_64 packages-site/rpm/aarch64
+          #   cp built-artifacts/packages-x86_64/dist/*.x86_64.rpm packages-site/rpm/x86_64/
+          #   cp built-artifacts/packages-aarch64/dist/*.aarch64.rpm packages-site/rpm/aarch64/
+          #
+          # Alpine:
+          #   mkdir -p packages-site/apk/x86_64 packages-site/apk/aarch64
+          #   cp built-artifacts/packages-x86_64/dist/*.apk packages-site/apk/x86_64/
+          #   cp built-artifacts/packages-aarch64/dist/*.apk packages-site/apk/aarch64/
+          #
+          # Void:
+          #   mkdir -p packages-site/xbps/x86_64 packages-site/xbps/aarch64
+          #   cp built-artifacts/packages-x86_64/dist/*.xbps packages-site/xbps/x86_64/
+          #   cp built-artifacts/packages-aarch64/dist/*.xbps packages-site/xbps/aarch64/
+          #
+          # Arch:
+          #   mkdir -p packages-site/arch/x86_64 packages-site/arch/aarch64
+          #   cp built-artifacts/packages-x86_64/dist/*.pkg.tar.zst packages-site/arch/x86_64/
+          #   cp built-artifacts/packages-aarch64/dist/*.pkg.tar.zst packages-site/arch/aarch64/
+          #
+          # Maven/Gradle:
+          #   rsync -a built-artifacts/packages-x86_64/build/maven-repo/ packages-site/maven/
+          test -d packages-site
+
+      - name: Regenerate native Linux repository metadata
+        working-directory: packages-site
+        run: |
+          # Run the metadata command for the package formats you actually use.
+          # Install the required tools in this job before enabling a command.
+          #
+          # APT example:
+          #   dpkg-scanpackages apt/pool/main > apt/dists/stable/main/binary-amd64/Packages
+          #   gzip -9fk apt/dists/stable/main/binary-amd64/Packages
+          #   dpkg-scanpackages apt/pool/main > apt/dists/stable/main/binary-arm64/Packages
+          #   gzip -9fk apt/dists/stable/main/binary-arm64/Packages
+          #   apt-ftparchive release apt/dists/stable > apt/dists/stable/Release
+          #   gpg --batch --yes --clearsign -o apt/dists/stable/InRelease apt/dists/stable/Release
+          #   gpg --batch --yes -abs -o apt/dists/stable/Release.gpg apt/dists/stable/Release
+          #
+          # RPM example:
+          #   createrepo_c rpm/x86_64
+          #   createrepo_c rpm/aarch64
+          #
+          # Alpine example:
+          #   apk index -o apk/x86_64/APKINDEX.tar.gz apk/x86_64/*.apk
+          #   apk index -o apk/aarch64/APKINDEX.tar.gz apk/aarch64/*.apk
+          #   abuild-sign -k "$ABUILD_KEY_NAME" apk/x86_64/APKINDEX.tar.gz
+          #   abuild-sign -k "$ABUILD_KEY_NAME" apk/aarch64/APKINDEX.tar.gz
+          #
+          # Void example:
+          #   xbps-rindex -a xbps/x86_64/*.xbps
+          #   xbps-rindex -a xbps/aarch64/*.xbps
+          #
+          # Arch example:
+          #   repo-add arch/x86_64/tamkungz.db.tar.gz arch/x86_64/*.pkg.tar.zst
+          #   repo-add arch/aarch64/tamkungz.db.tar.gz arch/aarch64/*.pkg.tar.zst
+          test -d .
+
+      - name: Regenerate site indexes
+        working-directory: packages-site
+        run: python3 scripts/build_site.py
+
+      - name: Commit and push package repository
+        working-directory: packages-site
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git diff --quiet; then
+            echo "No package-site changes to publish."
+            exit 0
+          fi
+
+          git add .
+          git commit -m "Update package repository"
+          git push origin HEAD:${PACKAGES_BRANCH}
