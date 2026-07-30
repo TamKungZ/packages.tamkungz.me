@@ -123,9 +123,10 @@ jobs:
           # Install the required tools in this job before enabling a command.
           #
           # APT example:
-          #   dpkg-scanpackages apt/pool/main > apt/dists/stable/main/binary-amd64/Packages
+          #   mkdir -p apt/dists/stable/main/binary-amd64 apt/dists/stable/main/binary-arm64
+          #   dpkg-scanpackages --arch amd64 apt/pool/main > apt/dists/stable/main/binary-amd64/Packages
           #   gzip -9fk apt/dists/stable/main/binary-amd64/Packages
-          #   dpkg-scanpackages apt/pool/main > apt/dists/stable/main/binary-arm64/Packages
+          #   dpkg-scanpackages --arch arm64 apt/pool/main > apt/dists/stable/main/binary-arm64/Packages
           #   gzip -9fk apt/dists/stable/main/binary-arm64/Packages
           #   apt-ftparchive release apt/dists/stable > apt/dists/stable/Release
           #   gpg --batch --yes --clearsign -o apt/dists/stable/InRelease apt/dists/stable/Release
