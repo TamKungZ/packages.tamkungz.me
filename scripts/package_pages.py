@@ -130,6 +130,8 @@ def file_kind(path: Path) -> str:
         return "signature"
     if name == "maven-metadata.xml":
         return "metadata"
+    if suffix in {".yaml", ".yml"}:
+        return "manifest"
     if suffix in {".xml", ".gz", ".xz", ".zck", ".sqlite", ".solv"}:
         return "metadata"
 
@@ -242,6 +244,11 @@ def page_description(root: Path, directory: Path) -> str:
         return "Void Linux XBPS repository shared by TamKungZ_ Linux packages."
     if path.startswith("/arch/") or path == "/arch/":
         return "Arch Linux pacman repository shared by TamKungZ_ Linux packages."
+    if path.startswith("/winget/") or path == "/winget/":
+        return (
+            "Windows Package Manager manifest templates and related release "
+            "metadata for TamKungZ_ Windows packages."
+        )
 
 
     return f"Browse public package files in {path}."

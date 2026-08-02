@@ -35,6 +35,7 @@ AUTHOR_GITHUB_URL = "https://github.com/TamKungZ"
 # /xbps/<arch>      Void Linux XBPS repository
 # /arch/<arch>      Arch Linux pacman repository
 # /maven            Maven repository
+# /winget           Windows Package Manager manifest templates
 PROJECT_ROOTS = {
     "apt",
     "rpm",
@@ -42,6 +43,7 @@ PROJECT_ROOTS = {
     "xbps",
     "arch",
     "maven",
+    "winget",
 }
 
 IGNORE_DIRS = {
@@ -292,6 +294,18 @@ def maven_usage_block(maven_repo_url: str) -> UsageBlock:
     )
 
 
+def winget_usage_block(package_id: str = "TamKungZ.<PackageName>") -> UsageBlock:
+    return (
+        "Windows Package Manager",
+        "powershell",
+        f"""winget install --id {package_id} -e
+
+# Test a local manifest before submitting it:
+winget settings --enable LocalManifestFiles
+winget install --manifest winget/manifests/{package_id}/<version>/""",
+    )
+
+
 def root_usage_blocks(base_url: str, maven_repo_url: str | None = None) -> list[UsageBlock]:
     blocks = [
         apt_usage_block(base_url),
@@ -299,6 +313,7 @@ def root_usage_blocks(base_url: str, maven_repo_url: str | None = None) -> list[
         alpine_usage_block(base_url),
         void_usage_block(base_url),
         arch_usage_block(base_url),
+        winget_usage_block(),
     ]
 
     if maven_repo_url:

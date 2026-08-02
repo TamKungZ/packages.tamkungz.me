@@ -24,6 +24,7 @@ rpm/      RPM repository grouped by base architecture
 apk/      Alpine APK repository
 xbps/     Void Linux XBPS repository
 arch/     Arch Linux pacman repository
+winget/   Windows Package Manager manifest templates
 maven/    Maven-compatible JVM artifact repository
 apps/     Human-readable app pages
 gpg.key   Public GPG key for signed metadata and artifacts
@@ -171,6 +172,7 @@ RPM:      x86_64, aarch64 metadata is present
 Alpine:   x86_64 metadata is present
 Void:     x86_64 metadata is present
 Arch:     x86_64 metadata is present
+WinGet:   Windows manifests are installer-specific, commonly x64 and arm64
 Maven:    JVM artifacts are OS-independent unless the artifact itself is native
 ```
 
@@ -187,6 +189,20 @@ RPM:    repodata/repomd.xml and repodata payload files
 Alpine: APKINDEX.tar.gz
 Void:   <arch>-repodata
 Arch:   tamkungz.db, tamkungz.files
+```
+
+WinGet is different from Linux package repositories. A normal public package is
+published by submitting YAML manifests to the Microsoft community repository.
+This site can host the Windows installer files and keep manifest templates under
+`winget/`, but a plain static directory listing is not a WinGet source by
+itself. Private WinGet sources require either a pre-indexed source or a REST API
+source.
+
+Test a manifest locally before submitting it:
+
+```powershell
+winget settings --enable LocalManifestFiles
+winget install --manifest winget/manifests/TamKungZ.Example/1.0.0/
 ```
 
 ## CI Publish Example

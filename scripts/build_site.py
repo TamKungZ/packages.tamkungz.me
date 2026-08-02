@@ -44,6 +44,7 @@ PACKAGE_ROOT_ORDER = {
     "rpm": 3,
     "apk": 4,
     "xbps": 5,
+    "winget": 6,
 }
 
 
