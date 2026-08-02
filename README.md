@@ -198,11 +198,24 @@ This site can host the Windows installer files and keep manifest templates under
 itself. Private WinGet sources require either a pre-indexed source or a REST API
 source.
 
-Test a manifest locally before submitting it:
+There are two WinGet paths:
+
+- `repo.tamkungz.me` is the private WinGet REST source endpoint.
+- `packages.tamkungz.me` stores static manifests and installer assets for local
+  testing or upstream `winget-pkgs` submission.
+
+Use the private source:
+
+```powershell
+winget source add --name tamkungz --arg https://repo.tamkungz.me/winget --type Microsoft.Rest
+winget install --id TamKungZ.ImageMerge -e
+```
+
+Test a static manifest from this package repository:
 
 ```powershell
 winget settings --enable LocalManifestFiles
-winget install --manifest winget/manifests/TamKungZ.Example/1.0.0/
+winget install --manifest winget/manifests/TamKungZ.ImageMerge/1.1.1/
 ```
 
 ## CI Publish Example

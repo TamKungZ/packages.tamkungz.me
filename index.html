@@ -466,9 +466,11 @@ sudo pacman -S &lt;package-name&gt;</code></pre>
           </div>
           <button class="copy-btn" onclick="copyCode(this)" type="button">copy</button>
         </div>
-        <pre><code class="language-powershell">winget install --id TamKungZ.&lt;PackageName&gt; -e
+        <pre><code class="language-powershell"># repo.tamkungz.me: private WinGet REST source
+winget source add --name tamkungz --arg https://repo.tamkungz.me/winget --type Microsoft.Rest
+winget install --id TamKungZ.&lt;PackageName&gt; -e
 
-# Test a local manifest before submitting it:
+# packages.tamkungz.me: static manifests for local testing/submission
 winget settings --enable LocalManifestFiles
 winget install --manifest winget/manifests/TamKungZ.&lt;PackageName&gt;/&lt;version&gt;/</code></pre>
       </div>
@@ -532,7 +534,7 @@ winget install --manifest winget/manifests/TamKungZ.&lt;PackageName&gt;/&lt;vers
     </section>
 
     <footer>
-      Generated at 2026-08-02T15:11:54.417942+00:00<br>
+      Generated at 2026-08-02T15:39:55.073074+00:00<br>
       Made by <a href="https://github.com/TamKungZ">TamKungZ_</a> &middot; <a href="https://x.com/TamKungZ_">X</a> &middot; <a href="mailto:dev@tamkungz.me">dev@tamkungz.me</a><div class="footer-links"><a href="https://packages.tamkungz.me/terms/">Terms</a><a href="https://packages.tamkungz.me/privacy/">Privacy</a><a href="https://packages.tamkungz.me/license/">License</a></div>
     </footer>
   </main>

@@ -9,9 +9,16 @@ This folder is not a complete WinGet source by itself. A private WinGet source
 needs the source format supported by the Windows Package Manager client, such as
 a REST source.
 
-Use the example manifest set as a template:
+Use `repo.tamkungz.me` as the private WinGet REST source:
+
+```powershell
+winget source add --name tamkungz --arg https://repo.tamkungz.me/winget --type Microsoft.Rest
+winget install --id TamKungZ.ImageMerge -e
+```
+
+Use `packages.tamkungz.me` manifests directly for local testing or submission:
 
 ```powershell
 winget settings --enable LocalManifestFiles
-winget install --manifest winget/manifests/TamKungZ.Example/1.0.0/
+winget install --manifest winget/manifests/TamKungZ.ImageMerge/1.1.1/
 ```

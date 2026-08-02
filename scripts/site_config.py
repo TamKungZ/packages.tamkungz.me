@@ -298,9 +298,11 @@ def winget_usage_block(package_id: str = "TamKungZ.<PackageName>") -> UsageBlock
     return (
         "Windows Package Manager",
         "powershell",
-        f"""winget install --id {package_id} -e
+        f"""# repo.tamkungz.me: private WinGet REST source
+winget source add --name tamkungz --arg https://repo.tamkungz.me/winget --type Microsoft.Rest
+winget install --id {package_id} -e
 
-# Test a local manifest before submitting it:
+# packages.tamkungz.me: static manifests for local testing/submission
 winget settings --enable LocalManifestFiles
 winget install --manifest winget/manifests/{package_id}/<version>/""",
     )
