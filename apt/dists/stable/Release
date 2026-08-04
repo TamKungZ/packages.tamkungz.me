@@ -1,32 +1,32 @@
 Architectures: amd64 arm64
 Codename: stable
 Components: main
-Date: Sat, 18 Jul 2026 10:40:45 +0000
+Date: Tue, 04 Aug 2026 11:08:32 +0000
 Description: TamKungZ_ APT Package Repository
 Label: TamKungZ_ Packages
 Origin: TamKungZ_
 Suite: stable
 MD5Sum:
- 32ae5d9695127cd348e4cd5322c964ab              203 Release
+ a0c6bed6b67f725d4e89bf14ab4f9f2f              203 Release
  e844a605866689e2c1c2f410c2ab7669             4493 main/binary-amd64/Packages
- a32699c646e3a6308c9760ba3cf08715             1478 main/binary-amd64/Packages.gz
+ f11eb807592e02350030d0610c494686             1478 main/binary-amd64/Packages.gz
  337ef03ef857a9bc7af62cfca4133b69              779 main/binary-arm64/Packages
  c54ec4985ac6422a7595abd9029ba4c8              526 main/binary-arm64/Packages.gz
 SHA1:
- e0c137741bcce4e4c0a8c6d2f3bc8dede797c681              203 Release
+ de716086899cb73254c8dde5560ec4774537edba              203 Release
  fe869bab0e4166d76208720901feb5d759e5ad9c             4493 main/binary-amd64/Packages
- ef7981f23af5ad8b4dd96b1af62978076776733f             1478 main/binary-amd64/Packages.gz
+ 9e9a0d9f1ee99ede3412a805df6496335c94c3fc             1478 main/binary-amd64/Packages.gz
  a0b612c7c9c81cf89149ee66eaecdb4304b35ae8              779 main/binary-arm64/Packages
  da6801c47106c94193f5337d843308d0a3fcb327              526 main/binary-arm64/Packages.gz
 SHA256:
- e801e9ef9b3a58f26388b543ab74d004cb6c6b7d1edc269f282b77ef097b51e8              203 Release
+ 0201309d4b55b99aba38cf9e67a67a74ec0b30bafa07bee4f15cc65c5007e92d              203 Release
  3678c0e290a9115f7d30c6a8075e4ab993fe16833dc04613a536d18a6b0d58c7             4493 main/binary-amd64/Packages
- 67631064797efa663aae0450ff30612e6731becb5c7c683f78059722197378ce             1478 main/binary-amd64/Packages.gz
+ c18108ddd19521dde3a6e1256dfc2c7677db7edbbf4fde89fc202b6b51b8dd78             1478 main/binary-amd64/Packages.gz
  56b0b5aeb058641a033021f6761b0aa491b777721dc48f555d389f705ff2c4a5              779 main/binary-arm64/Packages
  4ffde5154c55f40a5cb4aa1f7756a0f74daccd0098e82b6bb41fc1035beee311              526 main/binary-arm64/Packages.gz
 SHA512:
- 176fa2e34ca64ed6d8ced28a986c591d2a6a0d44854453f81a0800d244f86f61d99430583566d08be93709a23ebffe4f7044e7b78d03f0d13e8f58d534ca64b8              203 Release
+ d734287fdb170944418a5acfc12c8932b188a713558a7ec4f009338be6c1a66565531cbda6d4ea2990893d428e41162a745b61cd8348e40e5172859a4635025f              203 Release
  2c0043fb1634cd9bc608e1ff6ab8752c15803ab00f92cc8c06790d9f77c2222312c9163cd1f0edb2faccd1b7616f72b3f9fe2f91d403d09e6f1d358f293edf6d             4493 main/binary-amd64/Packages
- b9509bc4b0b4d9915fef92a9c9872636ee73eb5446f1c1d7ead05954085448a3bb23a3b1d0d219760eac61caa6c22f57d43fb726bae43d89a40114c9f11992c7             1478 main/binary-amd64/Packages.gz
+ 664223e1367ab299196e2a56fc1dc51aae00a6363386678401901e9572e183a538d5f48767ef7fd02c3f2b2c49b77631f2a0442003b004ed7a506fea98267a68             1478 main/binary-amd64/Packages.gz
  6b0cf862fa6491d6b628423f98cbee4b7ae3cad441c4825d580f83d16a403b63355f4b299c35060e16c5a9a34e2cbff14cc9130b5a0844c8605f861f33225b6a              779 main/binary-arm64/Packages
  e15071d97b37d33556349513918e01e6d7c853d8df40cc3b4c27a6963ee5ef6c67abdb36514e8c02ea70c1fa3dd021083f80965dd141ef13fe579abd0c8f5b31              526 main/binary-arm64/Packages.gz
