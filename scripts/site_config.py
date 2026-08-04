@@ -87,15 +87,22 @@ LEGAL_PAGES: list[LegalPage] = [
             (
                 "Repository purpose",
                 [
-                    "TamKungZ_ Packages is provided as a public package repository for compatible package managers, build tools, and users downloading published project artifacts.",
+                    "TamKungZ_ Packages is a distribution service for published project artifacts, intended for use with compatible package managers, build tools, and direct downloads.",
                     "You may use this service to install, build, test, or run projects that depend on artifacts published here.",
                 ],
             ),
             (
-                "Restrictions",
+                "Mirrors and redistribution",
                 [
-                    "Do not redistribute, mirror, rehost, modify and redistribute, sell, sublicense, or claim ownership of artifacts from this repository unless a specific artifact license allows it.",
-                    "Do not use this repository as the source for unofficial package mirrors, bulk scraping, abusive automation, or traffic that disrupts availability for normal package-manager use.",
+                    "Mirroring or redistribution is permitted when performed as part of an official or recognized operating-system distribution, distribution archive, or community package repository, such as repositories maintained by Ubuntu or other established distribution communities.",
+                    "Do not create unofficial mirrors, rehost this repository or its artifacts as your own package service, publish them through personal or independently hosted repositories, or otherwise present such redistribution as an official TamKungZ_ Packages source.",
+                    "Project-specific license terms still apply to the individual artifacts being mirrored or redistributed.",
+                ],
+            ),
+            (
+                "Abuse and automated access",
+                [
+                    "Do not use this repository for bulk scraping, abusive automation, or traffic that disrupts availability for normal package-manager and download use.",
                 ],
             ),
             (
@@ -108,7 +115,7 @@ LEGAL_PAGES: list[LegalPage] = [
             (
                 "Contact",
                 [
-                    "For permission requests, takedown requests, or repository issues, contact dev@tamkungz.me.",
+                    "For permission requests, takedown requests, mirror coordination, or repository issues, contact dev@tamkungz.me.",
                 ],
             ),
         ],
@@ -150,26 +157,28 @@ LEGAL_PAGES: list[LegalPage] = [
     {
         "slug": "license",
         "title": "License and Artifact Use",
-        "description": "License terms for this package repository and published artifacts.",
+        "description": "License information for TamKungZ_ Packages and the project artifacts distributed through it.",
         "sections": [
             (
-                "Repository license",
+                "Repository and distribution service",
                 [
-                    "This package repository is all rights reserved unless stated otherwise.",
-                    "You are allowed to download artifacts through compatible package managers or build tools for building, testing, installing, or running projects that depend on them.",
+                    "TamKungZ_ Packages is a distribution service for project artifacts and repository metadata. It does not replace, modify, or define the license of the projects distributed through it.",
+                    "The repository website, generated indexes, metadata, and other repository-specific content are all rights reserved unless stated otherwise.",
                 ],
             ),
             (
-                "Artifact licenses",
+                "Project and artifact licenses",
                 [
-                    "Individual artifacts may include their own license terms in their POM, package metadata, documentation, source repository, or distribution page.",
-                    "If an artifact provides separate terms, those terms apply to that artifact. If no separate license is provided, all rights are reserved.",
+                    "Each project or artifact may have its own license terms, provided through its source repository, package metadata, documentation, distribution page, or included license files.",
+                    "The license of each project or artifact governs the use, modification, and redistribution of that project or artifact. Availability through TamKungZ_ Packages does not grant additional rights beyond those terms.",
                 ],
             ),
             (
-                "Redistribution",
+                "Mirroring",
                 [
-                    "Do not redistribute, mirror, rehost, modify and redistribute, sell, sublicense, or claim ownership of repository artifacts unless the artifact's own license explicitly permits it.",
+                    "Official or recognized operating-system distributions, distribution archives, and community package repositories may mirror artifacts from this service where doing so is compatible with the applicable project or artifact license.",
+                    "Unofficial personal mirrors, independently hosted copies, republishing through services such as personal PPAs or similar package hosting, and rehosting presented as an alternative TamKungZ_ Packages repository are not permitted without prior permission.",
+                    "A mirror must not imply endorsement, ownership, or official status from TamKungZ_ unless such status has been explicitly granted.",
                 ],
             ),
         ],
