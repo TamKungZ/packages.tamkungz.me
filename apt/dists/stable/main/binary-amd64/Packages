@@ -1,6 +1,24 @@
-Package: livedesk
-Version: 0.1.1
+Package: glosslate
 Architecture: amd64
+Version: 1.0.0
+Priority: optional
+Section: utils
+Maintainer: TamKungZ_ <dev@tamkungz.me>
+Filename: pool/main/g/glosslate/Glosslate-v1.0.0-linux-x64.deb
+Size: 27291004
+MD5sum: 1ba54c501191552e2ee578e29a8de5f3
+SHA1: f861c49d5c5a3dd972251c69fd71fdd852a21261
+SHA256: 3ab3554542d92675fd19f8ee7c8ee062a77966fd7a34b0188eb5a5dbdf23a0b9
+SHA512: 418f87f5d682e7c6958bfd8fbb2a39471bde14b5bffdad1cce7c7c24e8389e5687a7d4d62bacb8be4fe62a6369f737cf7956d6f2ce7681db7722e1bfd8d5d5ed
+Homepage: https://tamkungz.me
+Description: Glossary-aware translation tool
+ Cross-platform glossary-aware translation tool for flat JSON localization files.
+
+Package: livedesk
+Architecture: amd64
+Version: 0.1.1
+Priority: optional
+Section: gnome
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Depends: gjs, gir1.2-gtk-4.0, gir1.2-adw-1, gnome-shell, libgstreamer1.0-0, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-libav, dbus-user-session
 Recommends: totem | ffmpeg
@@ -9,15 +27,16 @@ Size: 551934
 MD5sum: e936a1b46a8caad9f70d4f8c02b40a37
 SHA1: c0179ed93dc34923bdb0cf7bb31bb812eceb0f8f
 SHA256: 5cf67c3313d752b1518a003e591c2498e416ac26a10a2e798bb2ad1a1a1157f1
-Section: gnome
-Priority: optional
+SHA512: e5a27542754a3a31141f3d8ee9ee9c16877ad3dcfd995fac2d2adede20dff8ce81c9207e6ea1f60abbf72c0390d8447837296decbca7c12961c4028fae22c8f4
 Description: Live video wallpaper for GNOME
  Livedesk renders a looping video as the GNOME desktop background via
  a GNOME Shell extension and a native GStreamer daemon.
 
 Package: livedesk
-Version: 0.1.2
 Architecture: amd64
+Version: 0.1.2
+Priority: optional
+Section: gnome
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Depends: gjs, gir1.2-gtk-4.0, gir1.2-adw-1, gnome-shell, libgstreamer1.0-0, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-libav, dbus-user-session
 Recommends: totem | ffmpeg
@@ -26,15 +45,16 @@ Size: 553846
 MD5sum: 792e14223d57e5914547d515688fff16
 SHA1: 2c3def4b9596dc6499ff491cd43f703694f3fb04
 SHA256: ace6effbadc653dbc6fdc06b1122c2b0f82652e756a3fa09d1376e820eeffae7
-Section: gnome
-Priority: optional
+SHA512: 5988bd3096b8d574bd450378d1c357486798c3062e7b144dfe98444ea6a4f9e82264d8357bf498e3dcf115e4e9e30331fe8850fd637b37d4f507e6a38acf72dd
 Description: Live video wallpaper for GNOME
  Livedesk renders a looping video as the GNOME desktop background via
  a GNOME Shell extension and a native GStreamer daemon.
 
 Package: livedesk
-Version: 0.1.3
 Architecture: amd64
+Version: 0.1.3
+Priority: optional
+Section: gnome
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Depends: gjs, gir1.2-gtk-4.0, gir1.2-adw-1, gnome-shell, libgstreamer1.0-0, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-libav, dbus-user-session
 Recommends: totem | ffmpeg
@@ -43,15 +63,16 @@ Size: 556060
 MD5sum: 9b4a50d213f788c24965d94973e3a291
 SHA1: b97d706657a95791f9ff3e9262b25da6fcc31426
 SHA256: c9f4c36f46aac8a54787e70c16cdfd388936c10aab827cc6a55a6a113f24e009
-Section: gnome
-Priority: optional
+SHA512: 2cc94d8aa52b1e81f251610caab0369d2b483aebd47d0e23c05a8b566016c5f4219458d7a7e4b5872ac8f8139d1a941d690094946d9eafdfa3e5f0eb4c68e4fb
 Description: Live video wallpaper for GNOME
  Livedesk renders a looping video as the GNOME desktop background via
  a GNOME Shell extension and a native GStreamer daemon.
 
 Package: livedesk
-Version: 1.0.0
 Architecture: amd64
+Version: 1.0.0
+Priority: optional
+Section: gnome
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Depends: gjs, gir1.2-gtk-4.0, gir1.2-gtk-3.0, gir1.2-adw-1, gir1.2-ayatanaappindicator3-0.1, gnome-shell, libgstreamer1.0-0, gstreamer1.0-plugins-good, gstreamer1.0-plugins-bad, gstreamer1.0-libav, dbus-user-session
 Recommends: totem | ffmpeg
@@ -60,15 +81,16 @@ Size: 547566
 MD5sum: 00838d09bb8a1dca552eaf11974594d0
 SHA1: 9745c7f638f206f1eecfc692ece35e17ecddfe6e
 SHA256: 76ddb159d6637c61ef3e94193eb66577484e1051f21181b74c28116e1ae538b6
-Section: gnome
-Priority: optional
+SHA512: 668981d910099a92f531a992e20681c9690157b42c366242261ab72da532fb547771324d031f0ec32704e13e19fafec60f9b150ccdae09f998cefae5fd89f977
 Description: Live video wallpaper for GNOME
  Livedesk teaches GNOME's background setting to accept video files via
  a GNOME Shell native background patch and a GStreamer daemon.
 
 Package: tar-install
-Version: 0.2.0-1
 Architecture: amd64
+Version: 0.2.0-1
+Priority: optional
+Section: utils
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Installed-Size: 3326
 Depends: libc6 (>= 2.34), liblzma5 (>= 5.1.1alpha+20120614), tar-install (>= 0.2.0)
@@ -77,8 +99,7 @@ Size: 906428
 MD5sum: 016de5d6a90f1b59d0cd3ac933ab289a
 SHA1: b868e3a3504436949601a6425adc0c63e443087d
 SHA256: e158e9c664d9fd0c875e377b015b8f465b0c619e74b0dc9f115c548a01660b60
-Section: utils
-Priority: optional
+SHA512: 96182ca663051fb48be99d193f55bb0c711d6b405ba137eec035f77156ee30493ea139d4d2fcf39dac1310b242e1b2f26cade15d3d4db43fa294959633cbee65
 Homepage: https://packages.tamkungz.me/apps/tarminal/
 Description: Library core for safely installing Linux app tarballs into desktop-friendly
  locations.
@@ -86,8 +107,10 @@ Description: Library core for safely installing Linux app tarballs into desktop-
  This package provides the tar-install command stub and shared project identity.
 
 Package: tarminal
-Version: 0.2.0-1
 Architecture: amd64
+Version: 0.2.0-1
+Priority: optional
+Section: utils
 Maintainer: TamKungZ_ <dev@tamkungz.me>
 Installed-Size: 3660
 Depends: libc6 (>= 2.34), liblzma5 (>= 5.1.1alpha+20120614), tar-install (>= 0.2.0)
@@ -96,8 +119,7 @@ Size: 1079900
 MD5sum: 9f99bcf03528f37cca2460324d5ecdd2
 SHA1: 5cd08103841aa8dddcec2f54e416566191a58ca8
 SHA256: 4a85c6801c39c71ee1920640d4cebb814e1f990d69d20e2849ca4357f86c1d25
-Section: utils
-Priority: optional
+SHA512: 3ca51e63aef6472781d4fe3c59e390201872eb5cf86be40c8f3fce19ba6d89794dda291a8d00c0d85186e5614527e59b0017e3e2803fe2b86ab19cc950f45b31
 Homepage: https://packages.tamkungz.me/apps/tarminal/
 Description: CLI frontend for tar-install. Installs Linux app tarballs with commands, icons,
  and desktop entries.
