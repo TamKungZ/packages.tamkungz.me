@@ -156,6 +156,11 @@
     <priority>0.45</priority>
   </url>
   <url>
+    <loc>https://packages.tamkungz.me/maven/me/tamkungz/nilloadersdk/nilloadersdk/3.0.1/</loc>
+    <lastmod>2026-08-05</lastmod>
+    <priority>0.45</priority>
+  </url>
+  <url>
     <loc>https://packages.tamkungz.me/maven/me/tamkungz/sidegate/</loc>
     <lastmod>2026-08-05</lastmod>
     <priority>0.45</priority>
